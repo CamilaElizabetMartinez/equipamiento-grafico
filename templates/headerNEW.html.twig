@@ -1,0 +1,123 @@
+<div>
+	<header>
+		<div class="header-container">
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-xl-6 col-xs-5 col-sm-6">
+							<div class="welcome-msg">
+								Bienvenido a Equipamiento Grafico
+							</div>
+						</div>
+						<div class="col-lg-6 col-xs-5 col-sm-6 hidden-xs">
+							<div class="toplinks">
+								<div
+									class="links">
+									{# Poner dentro de condicional app.user (si esta logueado) #}
+									{% if not app.user %}
+										{# Poner dentro de condicional app.user (si NO esta logueado) #}
+										<div class="login">
+											<a href="login">
+												<span class="hidden-xs">Iniciar Sesion</span>
+											</a>
+										</div>
+									{% endif %}
+									{% if app.user %}
+										<ul class="nav menu-item" id="ulmantemiento">
+											<li class="level0 parent drop-menu">
+												<a>
+													<span id="spanmanetenimiento">Mantenimiento</span>
+												</a>
+												<ul class="level1" style="display: none;">
+													<li class="level1 first">
+														<a href="/product/insertform">
+															<span>Nuevo Producto</span>
+														</a>
+													</li>
+													<li class="level1 first">
+														<a href="/product/modify">
+															<span>Modificar Producto</span>
+														</a>
+													</li>
+													<li class="level1 first">
+														<a href="/categoria">
+															<span>Categorias</span>
+														</a>
+													</li>
+													<li class="level1 first">
+														<a title="Checkout" href="/logout">
+															<span class="hidden-xs">Cerrar Secion</span>
+														</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header></div><nav>
+<div class="mm-toggle-wrap">
+	<div class="mm-toggle">
+		<i class="fa fa-reorder"></i>
+		<span class="mm-label">Menu</span>
+	</div>
+</div>
+<div class="row">
+	<div class="logo">
+		<a title="equipamiento grafico" href="/"><img alt="equipamiento grafico" src="/images/logo.png"></a>
+	</div>
+	{# <div class="col-lg-4"> #}
+	<ul class="nav menu-item menu-item-left hidden-xs mt-5">
+		<li class="level0 parent drop-menu">
+			<a href="/">
+				<span>Principal</span>
+			</a>
+		</li>
+		<li class="level0 parent drop-menu">
+			<a href="/product/all">
+				<span>Catalogo</span>
+			</a>
+		</li>
+		<li class="level0 parent drop-menu">
+			<a href="/contacto">
+				<span>Conocenos</span>
+			</a>
+		</li>
+	</ul>
+	{# </div> #}
+	<div class="col-lg-5">
+		<ul class="uldatos nav menu-item menu-item-right mt-5">
+			<li class="lidatos level0 parent">
+				<div class="row mb-5">
+					<div class="col-12">
+						<span class='h4 col-12'>Carlos Pellegrini 1055 - CP 1842</span>
+					</div>
+					<div class="col-12">
+						<span class='h4 col-12'>Monte Grande - Bs. As. | Argentina</span>
+					</div>
+					<div class="col-12">
+						<span class='h4 col-12 emailheader'>
+							<img class="imagenesHeader" src="/img/header/mail.png" alt="mail">
+							<a href="mailto:equipamientografico@gmail.com">equipamientografico@gmail.com</a>
+						</span>
+					</div>
+                    <a href="https://wa.me/5491161100402">
+                        <div id="numtelf" class="col-12">
+                            <span class='h4 col-12'>
+                                <img class="imagenesHeader" src="/img/header/whatsapp.png" alt="telf">
+                                +54 (011) 11 6110 0402
+                            </span>
+                        </div>
+                    </a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div></nav>

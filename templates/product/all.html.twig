@@ -1,0 +1,153 @@
+{% extends 'baseNEW.html.twig' %}
+
+{% block title %}Equipamiento Grafico - Todos Productos
+{% endblock %}
+
+{% block meta %}
+	<link rel="stylesheet" type="text/css" href="/css/cssNotIndexNEW.css" media="all">
+
+{% endblock %}
+
+{% block body %}
+	<main>
+		<div class="row mt-3">
+			<div class="col-12 col text-center">
+				{% if categoriaunica is not empty %}
+					<span class="badge badge-info">{{categoriaunica.nombrecategoria}}
+					</span>
+				{% endif %}
+			</div>
+		</div>
+		<div class="container">
+			<div class="row justify-content-between mt-3 mb-4">
+			<div class="col-sm-12 col-md-3 col-lg-3 divsearch">
+					<form id="formSearch" action={{ path("allProduct", {idcategoria: idcategoria, sort: sort, page: page} ) }} method="GET">
+						<div class="input-group">
+							<input type="text" id="inputForm" class="form-control simple" placeholder="Buscar ..." name="srch-term" id="srch-term">							
+									<button type="submit" class="btn-search">
+									<i class="fa fa-search"></i>
+								</button>
+						</div>
+						
+						
+						
+					</form>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-6">
+					<ul class="nav">
+						<div class="col-6 divfilter">
+							<li class="level0 parent drop-menu">								
+								<span id="btn-categoria" class="btn-filter btn">Categorias</span>
+								<ul class="level1">
+									{% for value in categorias %}
+										<li class="level1 first">
+											<a href={{ path("allProduct", {idcategoria: value.idcategoria, sort: sort, page: page,search: search} ) }}>
+												<span>{{value.nombrecategoria}}</span>
+											</a>
+										</li>
+									{% endfor %}
+								</ul>								
+							</li>
+						</div>
+						<div class="col-6 divfilter">
+							<li class="level0 parent drop-menu">
+								<span id="btn-orden" class="btn-filter btn">Ordenar Por</span>
+								<ul class="level1">
+									<li class="level1 first">
+										<a class="" href={{ path("allProduct", {idcategoria: idcategoria, sort: "1", page: page,search: search} ) }}>
+											<span>Mas Reciente</span>
+										</a>
+									</li>
+									<li class="level1 first">
+										<a class="" href={{ path("allProduct", {idcategoria: idcategoria, sort: "2", page: page,search: search} ) }}>
+											<span>Mas Antiguo</span>
+										</a>
+									</li>
+									<li class="level1 first">
+										<a class="" href={{ path("allProduct", {idcategoria: idcategoria, sort: "3", page: page,search: search} ) }}>
+											<span>Mayor Precio</span>
+										</a>
+									</li>
+									<li class="level1 first">
+										<a class="" href={{ path("allProduct", {idcategoria: idcategoria, sort: "4", page: page,search: search} ) }}>
+											<span>Menor Precio</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</div>
+					</ul>
+				</div>
+				
+			</div>
+
+
+
+
+
+
+			<div class="row">
+			{% for value in dataproductforrender %}
+					<div class="divcard col-lg-4 col-md-6 col-sm-12">
+						<div class="item-img">
+							<div class="item-img-info">
+								<a href="{{ path("detailProduct", {idproduct:value.idproduct } ) }}" title="{{value.nombre}}" class="product-image">
+									<img class="img-card" src="/{{value.url}}" alt="{{value.nombre}}">
+								</a>
+							</div>
+						</div>
+						<div class="item-info">
+							<div class="info-inner">
+								<div class="item-title">
+									<h2 class="card-title">{{value.nombre}}</h2>
+								</div>
+								<div class="item-content">
+									<div class="item-price">
+										<div class="price-box">
+											<span class="regular-price">
+												<span class="price">Consultar Precio</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		{% if numPaginas != "0" %}
+			<div aria-label="Page navigation example" class="m-3">
+				<ul
+					class="pagination">
+					<!-- Aca en los href van los FILTROS  -->
+					<li class="page-item">
+						<a class="page-link" href={{ path("allProduct", {idcategoria: idcategoria, sort: sort, page: prev,search: search} ) }}>Anterior</a>
+					</li>
+					{# {{numPaginas}} #}
+					{% for i in 1..numPaginas %}
+						{% set active = "" %}
+						{% if page==i %}
+							{% set active = "active" %}
+						{% endif %}
+						<li class="page-item {{active}}">
+							<a class="page-link" href={{ path("allProduct", {idcategoria: idcategoria, sort: sort, page: i,search: search} ) }}>
+								{{i}}
+							</a>
+						</li>
+					{% endfor %}
+					<li class="page-item">
+						<a class="page-link" href={{ path("allProduct", {idcategoria: idcategoria, sort: sort, page: next,search: search} ) }}>Siguiente</a>
+					</li>
+				</ul>
+			</div>
+		{% else %}
+			<div class="alert alert-info" role="alert">
+				Proximamente habra productos en esta categoria, Gracias !
+			</div>
+		{% endif %}
+	{% endblock %}
+	{% block javascripts %}
+		<script src="/js/productAll.js" type="text/javascript"></script>
+	{% endblock %}

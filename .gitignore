@@ -1,5 +1,23 @@
-node_modules/
+# Composer
+/vendor/
+composer.phar
+
+# Symfony
+/var/
+.cache/
 .env
-build/
-dist/
+.env.local
+.env.*.local
+
+# PHP
 *.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

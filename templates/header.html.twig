@@ -1,0 +1,57 @@
+{% block header %}
+	<nav class="navbar navbar-dark bg-dark mt-2">
+		<div class="mm-toggle-wrap">
+			<div class="mm-toggle">
+				<i class="fa fa-reorder"></i>
+				<span class="mm-label">Menu</span>
+			</div>
+		</div>
+		<div class="row justify-content-between">
+			<div class="col-xl-5 col-md-7 col-sm-12 mt-5">
+				<span class="mb-0 h1 col-xl-12 titulo">Equipamiento Grafico Monte Grande</span>
+				<span class='navbar-brand mb-0 h2 col-12 eslogan'>Tu concesionaria de Máquinas Gráficás.</span>
+				<span class='navbar-brand mb-0 h2 col-12 eslogan'>¿Queres vender? ¿Queres Comprar?</span>
+				<span class='navbar-brand mb-0 h2 col-12 eslogan'>Carlos Alfredo Gonzalez</span>
+			</div>
+			<div class=" paraPadingImagen col-md-5 col-sm-12 col-xl-3 mt-5">
+				<img id="maquinaHeader" src="/img/header/maquinaheader.png" alt="maquina">
+			</div>
+			<div class='align-items-end col-xl-3 col-sm-12 col-md-3 mt-5 infoCabecera '>
+				<span class='navbar-brand mb-0 h4 col-12'>Carlos Pellegrini 1055 - CP 1842</span>
+				<span class='navbar-brand mb-0 h4 col-12'>Monte Grande - Bs. As. | Argentina
+				</span>
+				<span class='navbar-brand mb-0 h4 col-12'><img class="imagenesHeader" src="/img/header/mail.png" alt="mail">
+					equipamientografico@gmail.com
+				</span>
+				<span class='navbar-brand mb-0 h4 col-12'><img class="imagenesHeader" src="/img/header/whatsapp.png" alt="telf">
+					+54 (011) 11 6110 0402
+				</span>
+			</div>
+		</div>
+	</nav>
+	<nav class="navbar  fixed-top navbar-expand-lg navbar-dark bg-info row">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse col-xl-12 col-md-6 offset-md-5" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link navbar-brand" href="/">Principal</a>
+				<a class="nav-item nav-link navbar-brand" href="/product/all">Maquinas</a>
+				<a class="nav-item nav-link navbar-brand" href="/contacto">Contacto</a>
+			</div>
+			{% if app.user %}
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Mantenimiento
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a id="linkinsert" class="dropdown-item" href="/product/insertform">Insertar Maquina</a>
+						<a id="linkmodify" class="dropdown-item" href="/product/modify">Modificar Maquina</a>
+						<a id="linkcategoria" class="dropdown-item" href="/categoria">Agregar Categorias</a>
+						<a class="dropdown-item" href="/logout">Cerrar Sesion</a>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</nav>
+{% endblock %}

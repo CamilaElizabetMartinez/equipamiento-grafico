@@ -1,0 +1,66 @@
+{% extends 'baseNEW.html.twig' %}
+
+{% block title %}Equipamiento Grafico - Detalle
+{% endblock %}
+
+{% block meta %}
+	<link rel="stylesheet" type="text/css" href="/css/cssNotIndexNEW.css" media="all">
+
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-xl-4 col-md-5 col-sm-12 m-3 ">
+			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner">
+					{% for value in forrenderimg %}
+						<!-- Aca le doy el el active para el carrusel -->
+						{% set active = "" %}
+						{% if value.priority == "1" %}
+							{% set active = "active" %}
+						{% endif %}
+						<div class="carousel-item {{active}}">
+							<img src="/{{value.url}}" class="d-block w-100" alt="Fotos Maquinas">
+						</div>
+					{% endfor %}
+				</div>
+				<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+		</div>
+		<div class="col-xl-7 col-md-5 col-sm-12 mb-3">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<h1>{{oneProduct.titulo}}</h1>
+				</li>
+				<li class="list-group-item">
+                <p>Descripcion: </p>
+                <p>{{oneProduct.descripcion}}</p>
+                </li>
+				<li class="list-group-item">
+					<span class="price">Consultar Precio</span> </br>
+					<a href="https://wa.me/5491161100402?text=Me%20interesa%20la%20maquina%20{{oneProduct.titulo}}%20estás%20vendiendo">
+                        <img class="imagenesHeader" src="/img/header/whatsapp.png" alt="telf">
+                        <span>Click aqui para chatear por Whats App</span>
+                    </a>
+					<a class="dsp-block" href="mailto:equipamientografico@gmail.com">equipamientografico@gmail.com</a>
+                </li>
+			</ul>
+		</div>
+		{# Imagenes chicas #}
+		{# <div class="row hidden-xs">
+						{% for value in forrenderimg %}
+							<div class="col-3">
+								<img src="{{value.url}}" alt="Maquina Grafica" class="img-thumbnail">
+							</div>
+						{% endfor %}
+					</div> #}
+	</div>
+{% endblock %}

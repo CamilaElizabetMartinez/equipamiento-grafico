@@ -1,0 +1,50 @@
+{% extends 'baseNEW.html.twig' %}
+
+{% block title %}Equipamiento Grafico - Registro
+{% endblock %}
+
+{% block meta %}
+	<link rel="stylesheet" type="text/css" href="/css/cssNotIndexNEW.css" media="all">
+
+{% endblock %}
+
+
+{% block body %}
+	<div class="container">
+		<h1>Registro</h1>
+
+		{{ form_start(registrationForm) }}
+		{{ form_row(registrationForm.email) }}
+		{{ form_row(registrationForm.plainPassword) }}
+
+		<label for="nombreusuario">Nombre</label>
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" name="nombreusuario" id="basic-url" aria-describedby="basic-addon3">
+		</div>
+
+		{{ form_row(registrationForm.agreeTerms) }}
+
+		<button type="submit" class="btn">Register</button>
+		{{ form_end(registrationForm) }}
+	</div>
+{% endblock %}
+
+
+{# <form method="POST">
+			<label for="nombreusuario">Email</label>
+			<div class="input-group mb-3">
+				<input type="email" class="form-control" name="email" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+			<label for="nombreusuario">Nombre</label>
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" name="nombreusuario" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+			<label for="nombreusuario">Contraseña</label>
+			<div class="input-group mb-3">
+				<input type="password" class="form-control" name="password" id="basic-url" aria-describedby="basic-addon3">
+			</div>
+
+			{{ form_row(registrationForm.agreeTerms) }}
+
+<button type="submit" class="btn btn-primary mt-3 mb-3">Registrar</button>
+{{ form_end(registrationForm) }}</form>#}
