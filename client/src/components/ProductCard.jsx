@@ -1,15 +1,17 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Manejar múltiples imágenes si las hay
   const images = product.multimedia || [];
   const hasMultipleImages = images.length > 1;
 
   const nextImage = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setCurrentImageIndex((prev) =>
       prev === images.length - 1 ? 0 : prev + 1
     );
@@ -17,6 +19,7 @@ const ProductCard = ({ product }) => {
 
   const prevImage = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setCurrentImageIndex((prev) =>
       prev === 0 ? images.length - 1 : prev - 1
     );
@@ -30,8 +33,12 @@ const ProductCard = ({ product }) => {
     }).format(price);
   };
 
+  const handleCardClick = () => {
+    navigate(`/producto/${product.idproduct}`);
+  };
+
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={handleCardClick}>
       <div className="product-image-container">
         {images.length > 0 ? (
           <>

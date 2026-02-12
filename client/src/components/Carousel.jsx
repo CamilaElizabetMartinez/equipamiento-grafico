@@ -8,7 +8,6 @@ const Carousel = () => {
   const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
-    // Cargar configuración del carousel desde JSON
     fetch('/carousel-config.json')
       .then(res => res.json())
       .then(data => {
@@ -17,7 +16,6 @@ const Carousel = () => {
       })
       .catch(err => {
         console.error('Error cargando carousel config:', err);
-        // Fallback a imagen por defecto
         setSlides([{
           image: 'https://via.placeholder.com/1200x400/7C9692/FFFFFF?text=Equipamiento+Grafico',
           title: 'Equipamiento Gráfico Profesional',
@@ -43,13 +41,15 @@ const Carousel = () => {
     setCurrentIndex(index);
   };
 
-  const goToPrevious = () => {
+  const goToPrevious = (e) => {
+    e?.stopPropagation();
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? slides.length - 1 : prevIndex - 1
     );
   };
 
-  const goToNext = () => {
+  const goToNext = (e) => {
+    e?.stopPropagation();
     setCurrentIndex((prevIndex) =>
       prevIndex === slides.length - 1 ? 0 : prevIndex + 1
     );
