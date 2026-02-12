@@ -8,132 +8,195 @@
 .footer-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 3rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 1rem;
+  padding: 3.5rem 2rem;
 }
 
 .footer-section {
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 250px;
 }
 
 .footer-title {
   color: #f8f9fa;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.3rem;
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .footer-info {
-  flex-direction: column;
-  gap: 0.75rem;
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .footer-item {
   color: var(--white);
-  align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
   display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .footer-icon {
   flex-shrink: 0;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-top: 0.125rem;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-top: 0.2rem;
 }
 
 .footer-link {
-  color: #f8f9fa;;
+  color: #f8f9fa;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.3s ease;
 }
 
 .footer-link:hover {
-  opacity: 1;
   color: var(--white);
+  text-decoration: underline;
 }
 
 .footer-social {
-  flex-wrap: wrap;
-  gap: 1rem;
   display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
 }
 
 .social-link {
-  background-color: #cad4d3;
-  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  transition: all 0.3s;
-  display: flex;
+  width: 3rem;
+  height: 3rem;
+  transition: all 0.3s ease;
 }
 
 .social-link:hover {
-  color: var(--white);
-  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .social-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--white);
 }
 
 .footer-nav {
-  flex-direction: column;
-  gap: 0.5rem;
   display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .footer-nav-link {
   color: #f8f9fa;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.2rem 0;
 }
 
 .footer-nav-link:hover {
   color: var(--white);
+  padding-left: 0.5rem;
 }
 
 .footer-bottom {
   text-align: center;
-  border-top: 1px solid #374151;
-  padding: 1.5rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2rem 1rem;
 }
 
 .footer-bottom p {
   color: #f8f9fa;
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
 }
 
-/* Mobile */
-@media (min-width: 640px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .footer-container {
-    flex-direction: row;
-  }
-}
-
-/* Tablet */
-@media (min-width: 768px) {
-  .footer-container {
-    padding: 4rem 2rem;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
-  .footer-container {
-    flex-direction: row;
+    gap: 2.5rem;
+    padding: 3rem 1.5rem;
   }
 
   .footer-section {
     flex: 1;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .footer-section {
+    min-width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-info {
+    align-items: center;
+  }
+
+  .footer-item {
+    justify-content: center;
+    text-align: left;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-nav {
+    align-items: center;
+  }
+
+  .footer-bottom {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .footer-title {
+    font-size: 1.15rem;
+  }
+
+  .footer-item,
+  .footer-nav-link {
+    font-size: 0.85rem;
+  }
+
+  .social-link {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .social-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
   }
 }

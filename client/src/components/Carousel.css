@@ -1,7 +1,7 @@
 .carousel {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 500px;
   overflow: hidden;
   margin-bottom: 3rem;
 }
@@ -40,56 +40,70 @@
   height: 100%;
   background: linear-gradient(
     to right,
-    rgba(124, 150, 146, 0.8),
-    rgba(124, 150, 146, 0.4)
+    rgba(124, 150, 146, 0.85),
+    rgba(124, 150, 146, 0.45)
   );
   display: flex;
   align-items: center;
+  justify-content: center;
   color: var(--white);
+}
+
+.carousel-overlay .container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 2rem;
 }
 
 .carousel-overlay h2 {
   text-align: center;
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .carousel-overlay p {
   text-align: center;
   font-size: 1.5rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  line-height: 1.6;
 }
 
 .carousel-control {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(124, 150, 146, 0.7);
+  background-color: rgba(124, 150, 146, 0.75);
   color: var(--white);
   font-size: 3rem;
   padding: 1rem 1.5rem;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   z-index: 10;
+  line-height: 1;
 }
 
 .carousel-control:hover {
-  background-color: rgba(124, 150, 146, 0.9);
+  background-color: rgba(124, 150, 146, 0.95);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-control.prev {
   left: 1rem;
+  border-radius: 0 4px 4px 0;
 }
 
 .carousel-control.next {
   right: 1rem;
+  border-radius: 4px 0 0 4px;
 }
 
 .carousel-indicators {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -101,30 +115,57 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.6);
   border: 2px solid var(--white);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.indicator.active {
-  background-color: var(--white);
-  transform: scale(1.2);
+.indicator:hover {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
+.indicator.active {
+  background-color: var(--white);
+  transform: scale(1.3);
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
   .carousel {
-    height: 250px;
-    margin-bottom: 2rem;
+    height: 400px;
   }
 
   .carousel-overlay h2 {
-    font-size: 1.8rem;
+    font-size: 2.8rem;
   }
 
   .carousel-overlay p {
-    font-size: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .carousel-control {
+    font-size: 2.5rem;
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    height: 300px;
+    margin-bottom: 2rem;
+  }
+
+  .carousel-overlay .container {
+    padding: 0 1rem;
+  }
+
+  .carousel-overlay h2 {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .carousel-overlay p {
+    font-size: 1.1rem;
   }
 
   .carousel-control {
@@ -142,5 +183,35 @@
 
   .carousel-indicators {
     bottom: 1rem;
+    gap: 0.6rem;
+  }
+
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    height: 250px;
+  }
+
+  .carousel-overlay h2 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-overlay p {
+    font-size: 0.95rem;
+  }
+
+  .carousel-control {
+    font-size: 1.5rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
   }
 }
