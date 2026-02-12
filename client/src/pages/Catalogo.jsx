@@ -50,11 +50,16 @@ const Catalogo = () => {
     setSearchTerm(e.target.value);
   };
 
+  const handleCategoryChange = (e) => {
+    const value = e.target.value;
+    setSelectedCategory(value ? parseInt(value) : null);
+  };
+
   return (
     <div className="catalogo">
       <div className="container">
         <div className="filters-section" id="productos">
-          <h2 className="section-title">Nuestros Productos</h2>
+          <h2 className="section-title">NUESTROS PRODUCTOS</h2>
 
           <div className="filters-row">
             <div className="filter-group">
@@ -66,6 +71,7 @@ const Catalogo = () => {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="filter-input"
+                aria-label="Buscar productos"
               />
             </div>
 
@@ -75,8 +81,9 @@ const Catalogo = () => {
                 <select
                   id="category"
                   value={selectedCategory || ''}
-                  onChange={(e) => setSelectedCategory(e.target.value ? parseInt(e.target.value) : null)}
+                  onChange={handleCategoryChange}
                   className="filter-select"
+                  aria-label="Seleccionar categoría"
                 >
                   <option value="">Todas las categorías</option>
                   {categories.map((category) => (
