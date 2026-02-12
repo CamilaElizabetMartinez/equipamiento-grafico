@@ -1,26 +1,36 @@
 .about {
-  padding: 3rem 0;
+  padding: 3.5rem 0;
   min-height: 60vh;
 }
 
 .page-title {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color: var(--primary-color);
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.5rem;
+  align-items: flex-start;
 }
 
 .about-image {
-  border-radius: 8px;
+  flex: 1;
+  min-width: 300px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.about-image:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-hover);
 }
 
 .about-image img {
@@ -30,39 +40,128 @@
 }
 
 .about-info {
+  flex: 1;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+}
+
+.about-section h2 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .about-section p {
-  line-height: 1.8;
+  line-height: 1.9;
   color: var(--text-dark);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   text-align: justify;
+  font-size: 1.05rem;
 }
 
 .signature {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-style: italic;
 }
 
-/* Mobile */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .about {
+    padding: 3rem 0;
+  }
+
+  .page-title {
+    font-size: 2.4rem;
+    margin-bottom: 3rem;
+  }
+
+  .about-content {
+    gap: 2.8rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .about-section p {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .about {
+    padding: 2.5rem 0;
+  }
+
+  .page-title {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-content {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .about-image {
+    min-width: 100%;
+    border-radius: 10px;
+  }
+
+  .about-info {
+    min-width: 100%;
+    gap: 2rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .about-section p {
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .signature {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
   .about {
     padding: 2rem 0;
   }
 
   .page-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
   }
 
   .about-content {
-    grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
+  .about-info {
+    gap: 1.5rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.4rem;
+  }
+
   .about-section p {
-    text-align: left;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .signature {
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
   }
 }
