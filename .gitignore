@@ -21,7 +21,17 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Node & React
 node_modules
+/client/node_modules
+/client/dist
+/client/.env
+/client/.env.local
+/client/.env.production.local
+/client/.env.development.local
+/client/.env.test.local
+/client/coverage
 
 # Imágenes en public_html
 public_html/images/*.jpg
