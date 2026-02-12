@@ -9,7 +9,7 @@ const About = () => {
                 <div className="about-content">
                     <div className="about-image">
                         <img
-                            src="https://via.placeholder.com/600x400/7C9692/FFFFFF?text=Equipamiento+Grafico"
+                            src="/images/contact/carlos.jpeg"
                             alt="Equipamiento Gráfico"
                         />
                     </div>
