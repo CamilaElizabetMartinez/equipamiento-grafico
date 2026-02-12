@@ -7,18 +7,10 @@
   background-color: var(--white);
   color: var(--primary-color);
   padding: 0.85rem 1.8rem;
-  border-radius: 8px;
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 2.5rem;
   transition: all 0.3s ease;
-  border: 2px solid var(--primary-color);
-}
-
-.btn-back:hover {
-  background-color: var(--primary-color);
-  color: var(--white);
-  transform: translateX(-5px);
 }
 
 .detail-content {
@@ -46,7 +38,7 @@
   position: relative;
   width: 100%;
   background-color: #f8f9fa;
-  border-radius: 12px;
+  /* border-radius: 12px; */
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: box-shadow 0.3s ease;
@@ -83,7 +75,6 @@
   transition: all 0.3s ease;
   z-index: 2;
   line-height: 1;
-  border-radius: 8px;
 }
 
 .detail-nav:hover {
@@ -142,10 +133,10 @@
   background-color: var(--primary-color);
   color: var(--white);
   padding: 0.6rem 1.3rem;
-  border-radius: 12px;
   font-size: 1rem;
   font-weight: 600;
   align-self: flex-start;
+  border-radius: 2px;
 }
 
 .detail-price {
@@ -177,7 +168,7 @@
   background-color: var(--primary-color);
   color: var(--white);
   padding: 1.2rem 2.5rem;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 1.15rem;
   font-weight: 700;
   margin-top: 1.5rem;

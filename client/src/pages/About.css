@@ -22,7 +22,6 @@
 .about-image {
   flex: 1;
   min-width: 300px;
-  border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: transform 0.3s ease;

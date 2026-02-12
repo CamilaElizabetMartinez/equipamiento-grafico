@@ -1,6 +1,5 @@
 .product-card {
   background-color: var(--white);
-  border-radius: 10px;
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
@@ -34,22 +33,6 @@
   transform: scale(1.08);
 }
 
-.img-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(124, 150, 146, 0.8);
-  color: var(--white);
-  border: none;
-  font-size: 1.6rem;
-  padding: 0.6rem 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 2;
-  line-height: 1;
-  border-radius: 4px;
-}
-
 .img-nav:hover {
   background-color: rgba(124, 150, 146, 1);
   transform: translateY(-50%) scale(1.1);
@@ -61,30 +44,6 @@
 
 .img-nav.next {
   right: 0.6rem;
-}
-
-.image-indicators {
-  position: absolute;
-  bottom: 0.8rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-  z-index: 2;
-}
-
-.indicator-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.6);
-  border: 1px solid var(--white);
-  transition: all 0.3s ease;
-}
-
-.indicator-dot.active {
-  background-color: var(--white);
-  transform: scale(1.3);
 }
 
 .product-info {
@@ -108,7 +67,7 @@
   color: var(--white);
   font-size: 0.85rem;
   padding: 0.4rem 0.9rem;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-bottom: 1rem;
   align-self: flex-start;
   font-weight: 500;
@@ -142,7 +101,7 @@
   background-color: var(--primary-color);
   color: var(--white);
   padding: 0.75rem 1.6rem;
-  border-radius: 6px;
+  border-radius: 3px;
   font-size: 1rem;
   font-weight: 600;
   transition: all 0.3s ease;

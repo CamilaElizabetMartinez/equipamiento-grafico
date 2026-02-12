@@ -51,12 +51,10 @@
 
 .nav-link {
   font-size: 1.05rem;
-  color: var(--text-dark);
-  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
   padding: 0.6rem 1.2rem;
-  border-radius: 6px;
   transition: all 0.3s ease;
-  position: relative;
 }
 
 .nav-link::after {
@@ -69,11 +67,6 @@
   background-color: var(--primary-color);
   transition: all 0.3s ease;
   transform: translateX(-50%);
-}
-
-.nav-link:hover {
-  color: var(--primary-color);
-  background-color: rgba(124, 150, 146, 0.1);
 }
 
 .nav-link:hover::after {
