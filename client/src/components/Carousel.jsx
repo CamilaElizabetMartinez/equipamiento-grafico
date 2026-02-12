@@ -1,27 +1,43 @@
 import { useState, useEffect } from 'react';
 import './Carousel.css';
 
-const Carousel = ({ images = [] }) => {
+const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Usar placeholder si no hay imágenes
-  const defaultImages = [
-    'https://via.placeholder.com/1200x400/7C9692/FFFFFF?text=Equipamiento+Grafico+Monte+Grande'
-  ];
-
-  const carouselImages = images.length > 0 ? images : defaultImages;
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [imageErrors, setImageErrors] = useState({});
 
   useEffect(() => {
-    if (carouselImages.length > 1) {
+    // Cargar configuración del carousel desde JSON
+    fetch('/carousel-config.json')
+      .then(res => res.json())
+      .then(data => {
+        setSlides(data.slides);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error cargando carousel config:', err);
+        // Fallback a imagen por defecto
+        setSlides([{
+          image: 'https://via.placeholder.com/1200x400/7C9692/FFFFFF?text=Equipamiento+Grafico',
+          title: 'Equipamiento Gráfico Profesional',
+          description: 'La mejor calidad para tu negocio'
+        }]);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (slides.length > 1) {
       const interval = setInterval(() => {
         setCurrentIndex((prevIndex) =>
-          prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
+          prevIndex === slides.length - 1 ? 0 : prevIndex + 1
         );
-      }, 5000); // Cambia cada 5 segundos
+      }, 5000);
 
       return () => clearInterval(interval);
     }
-  }, [carouselImages.length]);
+  }, [slides.length]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
@@ -29,56 +45,70 @@ const Carousel = ({ images = [] }) => {
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? carouselImages.length - 1 : prevIndex - 1
+      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
     );
   };
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
+      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  const handleImageError = (index) => {
+    setImageErrors(prev => ({ ...prev, [index]: true }));
+  };
+
+  const getImageUrl = (slide, index) => {
+    if (imageErrors[index]) {
+      return `https://via.placeholder.com/1200x400/7C9692/FFFFFF?text=${encodeURIComponent(slide.title)}`;
+    }
+    return slide.image;
+  };
+
+  if (loading || slides.length === 0) {
+    return null;
+  }
 
   return (
     <div className="carousel">
       <div className="carousel-inner">
-        {carouselImages.map((image, index) => (
+        {slides.map((slide, index) => (
           <div
             key={index}
             className={`carousel-item ${index === currentIndex ? 'active' : ''}`}
           >
             <img
-              src={image}
-              alt={`Slide ${index + 1}`}
-              onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/1200x400/7C9692/FFFFFF?text=Equipamiento+Grafico';
-              }}
+              src={getImageUrl(slide, index)}
+              alt={slide.title}
+              onError={() => handleImageError(index)}
             />
             <div className="carousel-overlay">
               <div className="container">
-                <h2>Equipamiento Gráfico Profesional</h2>
-                <p>La mejor calidad para tu negocio</p>
+                <h2>{slide.title}</h2>
+                <p>{slide.description}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {carouselImages.length > 1 && (
+      {slides.length > 1 && (
         <>
-          <button className="carousel-control prev" onClick={goToPrevious}>
+          <button className="carousel-control prev" onClick={goToPrevious} aria-label="Anterior">
             ‹
           </button>
-          <button className="carousel-control next" onClick={goToNext}>
+          <button className="carousel-control next" onClick={goToNext} aria-label="Siguiente">
             ›
           </button>
 
           <div className="carousel-indicators">
-            {carouselImages.map((_, index) => (
+            {slides.map((_, index) => (
               <button
                 key={index}
                 className={`indicator ${index === currentIndex ? 'active' : ''}`}
                 onClick={() => goToSlide(index)}
+                aria-label={`Ir a slide ${index + 1}`}
               />
             ))}
           </div>
