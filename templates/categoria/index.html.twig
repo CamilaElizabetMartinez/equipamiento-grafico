@@ -1,0 +1,63 @@
+{% extends 'baseNEW.html.twig' %}
+
+{% block title %}Equipamiento Grafico - Mantenimiento
+{% endblock %}
+
+{% block meta %}
+	<link rel="stylesheet" type="text/css" href="/css/cssNotIndexNEW.css" media="all">
+
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container m-3">
+			<div class="row pl-5 m-3">
+				<a class="btn btn-primary p-3 m-3" href="{{ path("categorianuevopost") }}" role="button">Nuevo</a>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 p-5">
+					{% for item in categoria %}
+						<div class="row m-3">
+							<div class="col-lg-3 col-md-5 col-xs-5">{{item.nombrecategoria}}</div>
+							<div class="col-lg-1 col-md-3 col-xs-3">
+								<a class="btn btn-success" href="{{ path("categoriaeditarpost", {id: item.idcategoria}) }}" role="button">Editar</a>
+							</div>
+							<div class="col-lg-1 col-md-3 col-xs-3">
+								<a class="btn btn-danger" href="{{ path("categoriaDelete", {id: item.idcategoria}) }}" role="button">Borrar</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				{% if numPag > 1 %}
+					<div class="col-lg-12 p-5">
+						<div aria-label="Paginador categoria">
+							<ul class="pagination">
+								<li class="page-item">
+									<a class="page-link" href="{{ path("Categoria", {page: prev}) }}">Primera</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="{{ path("Categoria", {page: prev}) }}">Anterior</a>
+								</li>
+								{% for i in 1..numPag %}
+									{% set active = "" %}
+									{% if page==i %}
+										{% set active = "active" %}
+									{% endif %}
+									<li class="page-item {{active}}">
+										<a class="page-link" href="{{ path("Categoria", {page: i}) }}">{{i}}</a>
+									</li>
+								{% endfor %}
+								<li class="page-item">
+									<a class="page-link" href="{{ path("Categoria", {page: next}) }}">Ultima</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="{{ path("Categoria", {page: next}) }}">Siguiente</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</main>
+
+{% endblock %}

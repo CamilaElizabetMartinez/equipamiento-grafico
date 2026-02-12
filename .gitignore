@@ -1,0 +1,41 @@
+# Composer
+/vendor/
+/composer.phar
+
+# Symfony
+/var/
+/.cache/
+.env
+.env.local
+.env.*.local
+
+# PHP
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+node_modules
+
+# Imágenes en public_html
+public_html/images/*.jpg
+public_html/images/*.jpeg
+public_html/images/*.png
+public_html/images/*.gif
+public_html/images/*.bmp
+public_html/images/*.svg
+public_html/images/*.webp
+
+public_html/img/*.jpg
+public_html/img/*.jpeg
+public_html/img/*.png
+public_html/img/*.gif
+public_html/img/*.bmp
+public_html/img/*.svg
+public_html/img/*.webp

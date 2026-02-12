@@ -1,0 +1,35 @@
+{% extends 'baseNEW.html.twig' %}
+
+{% block title %}Equipamiento Grafico - Manteminiento
+{% endblock %}
+
+{% block meta %}
+	<link rel="stylesheet" type="text/css" href="/css/cssNotIndexNEW.css" media="all">
+
+{% endblock %}
+{% block body %}
+	<main>
+		<div class="container mt-5">
+			<div class="row mt-5 pl-5">
+				<div class="col-6">
+					<form class="mb-5" action="/categoria/guardar" method="post">
+						<div class="form-group">
+							<label for="textTitulo">Titulo</label>
+							<input type="text" class="form-control" name="nombre" aria-describedby="nombre" placeholder="Nombre" value="{{categoria.nombrecategoria}}">
+						</div>
+						<input type="hidden" name="id" value="{{categoria.idcategoria}}">
+						<button type="submit" class="btn btn-primary">Guardar</button>
+						<a class="btn btn-primary" href="/categoria" role="button">Volver</a>
+						<a class="btn btn-primary p-3 m-2" href="{{ path("categorianuevopost") }}" role="button">Nuevo</a>
+
+					</form>
+					{% if mensaje is defined%}
+						<div class="alert alert-primary" role="alert">
+							{{mensaje}}
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

@@ -1,0 +1,203 @@
+
+.img-card {
+    height: 342px;
+    width: 342px !important;
+}
+
+.imagenesHeader {
+    width: 29px;
+    height: 29px;
+}
+
+.mystyle>span {
+    color: white;
+}
+
+.mystyle {
+    position: absolute;
+    margin: 39px 0px 10px 700px;
+}
+
+.h4 {
+    color: white;
+}
+
+.divimputsearch {
+    margin-top: 10vh;
+    margin-left: 1vw;
+}
+
+nav {
+    background: url(../images/slide-img1.jpg) repeat top left;
+    z-index: 5 !important;
+}
+
+.m-3 {
+    margin: 3vh
+}
+
+#ulmantemiento {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+#spanmanetenimiento {
+    color: white;
+}
+
+#numtelf {
+    margin-bottom: 16px;
+}
+
+#divmantenimiento {
+    display: block;
+}
+
+.divcard {
+    margin-bottom: 7vh !important;
+    padding: 0 !important;
+    text-align: center;
+}
+
+.titulo-card {
+    font-size: 4vh !important;
+}
+
+.btn-filter {
+    background-color: #B6B4B5 !important;
+    border-color: #B6B4B5 !important;
+    color: white;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 0em !important;
+    margin-block-end: 0em !important;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.mt-7 {
+    margin-top: 7vh;
+}
+
+.btn-search {
+    width: 40px;
+    height: 33px;
+    background-color: #B6B4B5;
+    color: #fff;
+}
+
+.volver {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.idmodifyinput {
+    width: 34px !important;
+}
+
+.cienxcienmodify {
+    width: 100% !important;
+}
+
+.h4 {
+    font-size: 18px !important;
+}
+
+.item-info{
+    text-align: center !important;
+}
+
+.imagenesmodal {
+    height: 270px;
+}
+
+#inputForm{
+    height: 33px;
+}
+
+.maxheigth{
+    max-height: 46vh;
+}
+
+.heigthstetic{
+    height: 50vh;
+}
+
+.miniImgDetail{
+    height: 200px;
+    width: 200;
+}
+
+#submitformimg {
+    padding: 0 !important;
+}
+
+@media (max-width: 376px) {
+    .h4 {
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 425px) {
+
+    .heigthstetic{
+        height: 35vh;
+    }
+
+    .maxheigth{
+        max-height: 31vh;
+    }
+    
+    
+    #btn-filter:hover {
+        display: block;
+    }
+    .uldatos {
+        padding: 0 !important;
+        margin-top: 78px !important;
+    }
+    .lidatos {
+        margin-left: 10px !important;
+    }
+    .logo {
+        position: relative !important;
+    }
+    .hidden-xs {
+        display: none !important;
+    }
+    /* .divfilter{
+        width: 48% !important;
+        margin-left: 1vh;
+    }
+    .divsearch{
+        width: 52% !important;
+        margin-left: 29px !important;
+    } */
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+    .logo {
+        position: relative;
+        margin: 15px 0 0 25px !important;
+        left: 0;
+    }
+    div.row.mb-5 {
+        margin-left: 90px;
+    }
+}
+
+@media (min-width: 770px) and (max-width: 1024) {
+    .menu-item-right {
+        padding-left: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-msg {
+        display: none;
+    }
+}

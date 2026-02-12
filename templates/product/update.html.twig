@@ -1,0 +1,52 @@
+{% extends 'baseNEW.html.twig' %}
+
+{% block title %}Equipamiento Grafico - Actualizar
+{% endblock %}
+
+{% block meta %}
+	<link rel="stylesheet" type="text/css" href="/css/cssNotIndexNEW.css" media="all">
+
+{% endblock %}
+
+{% block body %}
+	{% if msj is not empty %}
+		<div class="alert alert-success" role="alert">
+			{{msj}}
+		</div>
+	{% endif %}
+	<form action="/product/updatePost" enctype="multipart/form-data" method="POST">
+		<div class="form-group m-3">
+			<label for="titulo">Titulo</label>
+			<input name="titulo" type="text" class="form-control" id="titulo" placeholder="Titulo" value={{product.titulo}}>
+		</div>
+		<div class="form-group m-3">
+			<label for="categoria">Seleccione Una Categoria</label>
+			<select name="idcategoria" class="form-control" id="idcategoria">
+				{% for value in categorias %}
+					{% set selected = "" %}
+					{% if product.idcategoria.idcategoria == value.idcategoria %}
+						{% set selected = "selected" %}
+					{% endif %}
+					<option {{selected}} value={{value.idcategoria}}>{{value.nombrecategoria}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="form-group m-3">
+			<label for="descripcion">Descripcion</label>
+			<textarea name="descripcion" class="form-control" id="descripcion" rows="3">{{product.descripcion}}</textarea>
+		</div>
+		<div class="form-group m-3">
+			<label for="precio">Precio</label>
+			<input name="precio" type="number" class="form-control" id="precio" placeholder="Precio" value={{product.precio}}>
+		</div>
+                    <input type="hidden" name="idproduct" value={{product.idproduct}}>
+
+		<input type="submit" class="btn btn-success m-3" name="submit" value="Actualizar"/>
+                    <button class="btn btn-danger">
+                              <a class="volver" href="/product/modify">Volver</a>
+                    </button>
+	</form>
+{% endblock %}
+{% block javascripts %}
+	<script src="../js/insertform.js" type="text/javascript"></script>
+{% endblock %}

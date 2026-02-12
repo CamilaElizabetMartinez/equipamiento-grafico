@@ -1,0 +1,87 @@
+index:
+   path: /
+   controller: App\Controller\HomeController::index
+   schemes:    [https]
+
+indexHome:
+  path: /index
+  controller: App\Controller\HomeController::index  
+  schemes:    [https]
+
+template:
+   path: /template
+   controller: App\Controller\HomeController::template
+
+   
+allProduct:
+   path: /product/all/{idcategoria?}/{sort?}/{page?}/{search?}
+   controller: App\Controller\ProductController::all
+
+insertformProduct:
+   path: /product/insertform
+   controller: App\Controller\ProductController::insertform
+
+modifyProduct:
+   path: /product/modify
+   controller: App\Controller\ProductController::modify
+
+ajaxDeleteProduct:
+   path: /product/borrar
+   controller: App\Controller\ProductController::borrar
+
+detailProduct:
+   path: /product/detail/{idproduct?}
+   controller: App\Controller\ProductController::detail
+
+updateProduct:
+   path: /product/update/{id}
+   controller: App\Controller\ProductController::update
+
+updateProductPost:
+   path: /product/updatePost
+   controller: App\Controller\ProductController::updatePost
+
+
+ajaxFindMultimedia:
+   path: /multimedia/ajaxFind
+   controller: App\Controller\MultimediaController::ajaxFind
+
+ajaxDeleteMultimedia:
+   path: /multimedia/borrar
+   controller: App\Controller\MultimediaController::Borrar
+
+ajaxGuardarMultimedia:
+   path: /multimedia/guardar
+   controller: App\Controller\MultimediaController::Guardar
+
+
+priorityMultimedia:
+   path: /multimedia/priority
+   controller: App\Controller\MultimediaController::priority
+
+categorianuevopost:
+    path: /categoria/nuevo/{id?}
+    controller: App\Controller\CategoriaController::insertupdate
+
+categoriaeditarpost:
+    path: /categoria/editar/{id}
+    controller: App\Controller\CategoriaController::insertupdate
+  
+categoriaguardarpost:
+    path: /categoria/guardar
+    controller: App\Controller\CategoriaController::insertupdatepost
+    methods: [POST]
+
+categoriaDelete:
+    path: /categoria/borrar/{id}
+    controller: App\Controller\CategoriaController::delete
+    methods: [GET]
+
+Categoria:
+    path: /categoria/{page?}
+    controller: App\Controller\CategoriaController::index
+
+
+contacto:
+    path: /contacto
+    controller: App\Controller\ContactoController::index
