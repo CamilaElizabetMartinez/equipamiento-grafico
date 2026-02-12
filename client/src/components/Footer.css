@@ -1,0 +1,139 @@
+.footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  width: 100%;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.footer-section {
+  flex-direction: column;
+  display: flex;
+}
+
+.footer-title {
+  color: #f8f9fa;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.footer-info {
+  flex-direction: column;
+  gap: 0.75rem;
+  display: flex;
+}
+
+.footer-item {
+  color: var(--white);
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  display: flex;
+}
+
+.footer-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+}
+
+.footer-link {
+  color: #f8f9fa;;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  opacity: 1;
+  color: var(--white);
+}
+
+.footer-social {
+  flex-wrap: wrap;
+  gap: 1rem;
+  display: flex;
+}
+
+.social-link {
+  background-color: #cad4d3;
+  border-radius: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: all 0.3s;
+  display: flex;
+}
+
+.social-link:hover {
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.social-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.footer-nav {
+  flex-direction: column;
+  gap: 0.5rem;
+  display: flex;
+}
+
+.footer-nav-link {
+  color: #f8f9fa;
+  font-size: 0.875rem;
+}
+
+.footer-nav-link:hover {
+  color: var(--white);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #374151;
+  padding: 1.5rem 1rem;
+}
+
+.footer-bottom p {
+  color: #f8f9fa;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Mobile */
+@media (min-width: 640px) {
+  .footer-container {
+    flex-direction: row;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .footer-container {
+    padding: 4rem 2rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .footer-container {
+    flex-direction: row;
+  }
+
+  .footer-section {
+    flex: 1;
+  }
+}
