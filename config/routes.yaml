@@ -1,12 +1,12 @@
 index:
    path: /
    controller: App\Controller\HomeController::index
-   schemes:    [https]
+   # schemes:    [https]  # Comentado para desarrollo local
 
 indexHome:
   path: /index
-  controller: App\Controller\HomeController::index  
-  schemes:    [https]
+  controller: App\Controller\HomeController::index
+  # schemes:    [https]  # Comentado para desarrollo local
 
 template:
    path: /template

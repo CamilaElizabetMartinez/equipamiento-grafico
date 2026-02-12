@@ -39,3 +39,14 @@ public_html/img/*.gif
 public_html/img/*.bmp
 public_html/img/*.svg
 public_html/img/*.webp
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+# Archivos de configuración deshabilitados
+*.disabled
+
+# Directorio de tests si está vacío
+/tests/

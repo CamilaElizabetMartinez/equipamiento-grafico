@@ -96,9 +96,9 @@ class ProductRepository extends ServiceEntityRepository
         $filterpagination;        
         EOD;
         $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $result = $stmt->executeQuery();
 
-        $rows = $stmt->fetchAll();
+        $rows = $result->fetchAllAssociative();
         if (count($rows) > 0) {
             foreach ($rows as $value) {
                 $card = new ProductModel();
@@ -138,9 +138,9 @@ class ProductRepository extends ServiceEntityRepository
         LIMIT 6;
         EOD;
         $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $result = $stmt->executeQuery();
 
-        return $stmt->fetchAll();
+        return $result->fetchAllAssociative();
     }
 
     public function allforpagination($idcategoria, $search)
@@ -163,9 +163,9 @@ class ProductRepository extends ServiceEntityRepository
         $filterQuerySearch
         EOD;
         $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $result = $stmt->executeQuery();
 
-        return $stmt->fetchAll();
+        return $result->fetchAllAssociative();
     }
 
     public function Guardar(Product $product): Product
