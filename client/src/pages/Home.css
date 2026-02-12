@@ -160,6 +160,8 @@
 
   .feature-icon {
     font-size: 3rem;
+    display: inline-grid;
+    justify-items: center;
   }
 
   .feature-card h3 {
