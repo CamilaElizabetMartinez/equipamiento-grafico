@@ -71,22 +71,21 @@ class MultimediaRepository extends ServiceEntityRepository
         return $Multimedia;
     }
 
-    public function updatePriority($idproduct,$idmultimedia)
+    public function updatePriority($idproduct, $idmultimedia)
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql = <<<EOD
-        UPDATE multimedia
-        set priority = '0'
-        WHERE 
-        idproduct = $idproduct;
-        UPDATE multimedia
-        set priority = '1'
-        WHERE
-        idmultimedia = $idmultimedia
-        EOD;
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        // Reset priority con parámetro preparado
+        $conn->executeStatement(
+            'UPDATE multimedia SET priority = 0 WHERE idproduct = :idproduct',
+            ['idproduct' => $idproduct]
+        );
+
+        // Set new priority con parámetro preparado
+        $conn->executeStatement(
+            'UPDATE multimedia SET priority = 1 WHERE idmultimedia = :idmultimedia',
+            ['idmultimedia' => $idmultimedia]
+        );
 
         return true;
     }

@@ -51,69 +51,63 @@ class ProductRepository extends ServiceEntityRepository
 
     function all($pagination = 1, $idcategoria = "", $sort = "", $search = "", $numRegisPos = 0)
     {
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.idcategoria', 'c')
+            ->addSelect('c')
+            ->where("p.titulo != ''");
+
+        // Filtro categoría SEGURO
+        if (!empty($idcategoria) && $idcategoria != "0") {
+            $qb->andWhere('c.idcategoria = :idcategoria')
+               ->setParameter('idcategoria', $idcategoria);
+        }
+
+        // Filtro búsqueda SEGURO
+        if (!empty($search) && $search != "empty") {
+            $qb->andWhere('p.titulo LIKE :search')
+               ->setParameter('search', '%' . $search . '%');
+        }
+
+        // Ordenamiento con whitelist (previene SQL injection)
+        $orderMap = [
+            1 => ['p.fechaAlta', 'DESC'],
+            2 => ['p.fechaAlta', 'ASC'],
+            3 => ['p.precio', 'DESC'],
+            4 => ['p.precio', 'ASC'],
+        ];
+        if (isset($orderMap[$sort])) {
+            $qb->orderBy($orderMap[$sort][0], $orderMap[$sort][1]);
+        }
+
+        // Paginación SEGURA
+        if (!empty($pagination) || $pagination === "0") {
+            $qb->setFirstResult((int)$pagination)
+               ->setMaxResults((int)$numRegisPos);
+        }
+
+        $results = $qb->getQuery()->getResult();
+
+        // Convertir a ProductModel para mantener compatibilidad
         $array = [];
-        //esta logica en algun momento la puedo pasar al controlador para dejar esto mas limpio
-        $filtercampoOrden = "";
-        if (!empty($sort)) {
-            $campoOrden = "";
-            switch ($sort) {
-                case 1:
-                    $campoOrden = "product.fecha_alta DESC";
-                    break;
-                case 2:
-                    $campoOrden = "product.fecha_alta ASC";
-                    break;
-                case 3:
-                    $campoOrden = "product.precio DESC";
-                    break;
-                case 4:
-                    $campoOrden = "product.precio ASC";
-                    break;
-            }
-            $filtercampoOrden = " ORDER BY $campoOrden ";
-        }
-        $filterpagination = "";
-        if (!empty($pagination) | $pagination == "0") {
-            $filterpagination = " LIMIT $pagination , $numRegisPos ";
-        }
-        $filtersearch = "";
-        if (!empty($search) && $search != "empty") $filtersearch = " AND titulo LIKE '%" . $search . "%' ";
-        $filtercategoria = "";
-        if (!empty($idcategoria) && $idcategoria != "0") $filtercategoria = " AND product.idcategoria = $idcategoria  ";
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = <<<EOD
-        SELECT categoria.nombrecategoria , multimedia.priority , multimedia.url, product.idproduct, titulo, descripcion, precio, product.idcategoria, fecha_alta
-        FROM product
-        JOIN multimedia
-        ON product.idproduct = multimedia.idproduct
-        JOIN categoria
-        ON product.idcategoria = categoria.idcategoria
-        WHERE multimedia.priority  = 1
-        AND titulo  != ""
-        $filtercategoria
-        $filtersearch
-        $filtercampoOrden
-        $filterpagination;        
-        EOD;
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery();
+        foreach ($results as $product) {
+            // Obtener multimedia prioritaria
+            $multimedia = $this->getEntityManager()
+                ->getRepository(\App\Entity\Multimedia::class)
+                ->findOneBy(['idproduct' => $product, 'priority' => 1]);
 
-        $rows = $result->fetchAllAssociative();
-        if (count($rows) > 0) {
-            foreach ($rows as $value) {
-                $card = new ProductModel();
-                $card->nombre = $value["titulo"];
-                $card->precio = $value["precio"];
-                $card->descripcion = $value["descripcion"];
-                $card->fecha_alta = $value["fecha_alta"];
-                $card->url = $value["url"];
-                $card->idproduct = $value["idproduct"];
-                $card->nombrecategoria = $value["nombrecategoria"];
-                $card->idcategoria = $value["idcategoria"];
+            $card = new ProductModel();
+            $card->nombre = $product->getTitulo();
+            $card->precio = $product->getPrecio();
+            $card->descripcion = $product->getDescripcion();
+            $card->fecha_alta = $product->getFechaAlta() ? $product->getFechaAlta()->format('Y-m-d H:i:s') : null;
+            $card->url = $multimedia ? $multimedia->getUrl() : null;
+            $card->idproduct = $product->getIdproduct();
+            $card->nombrecategoria = $product->getIdcategoria() ? $product->getIdcategoria()->getNombrecategoria() : null;
+            $card->idcategoria = $product->getIdcategoria() ? $product->getIdcategoria()->getIdcategoria() : null;
 
-                $array[] = $card;
-            }
+            $array[] = $card;
         }
+
         return $array;
     }
 
@@ -145,27 +139,25 @@ class ProductRepository extends ServiceEntityRepository
 
     public function allforpagination($idcategoria, $search)
     {
-        $filterQueryCategoria = "";
-        $filterQuerySearch = "";
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.idcategoria', 'c')
+            ->addSelect('c')
+            ->where("p.titulo != ''");
 
-        if (!empty($idcategoria) && $idcategoria != "0") $filterQueryCategoria =  " AND idcategoria = $idcategoria ";
-        if (!empty($search) && $search != "empty") $filterQuerySearch = " AND product.titulo LIKE '$search' ";
+        // Filtro categoría SEGURO
+        if (!empty($idcategoria) && $idcategoria != "0") {
+            $qb->andWhere('p.idcategoria = :idcategoria')
+               ->setParameter('idcategoria', $idcategoria);
+        }
 
+        // Filtro búsqueda SEGURO
+        if (!empty($search) && $search != "empty") {
+            $qb->andWhere('p.titulo LIKE :search')
+               ->setParameter('search', '%' . $search . '%');
+        }
 
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = <<<EOD
-        SELECT * FROM product
-        JOIN multimedia
-        ON product.idproduct = multimedia.idproduct
-        WHERE multimedia.priority  = 1 
-        AND titulo  != ""
-        $filterQueryCategoria
-        $filterQuerySearch
-        EOD;
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery();
-
-        return $result->fetchAllAssociative();
+        // Devolver todos los resultados que coincidan
+        return $qb->getQuery()->getResult();
     }
 
     public function Guardar(Product $product): Product
