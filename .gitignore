@@ -33,22 +33,9 @@ node_modules
 /client/.env.test.local
 /client/coverage
 
-# Imágenes en public_html
-public_html/images/*.jpg
-public_html/images/*.jpeg
-public_html/images/*.png
-public_html/images/*.gif
-public_html/images/*.bmp
-public_html/images/*.svg
-public_html/images/*.webp
-
-public_html/img/*.jpg
-public_html/img/*.jpeg
-public_html/img/*.png
-public_html/img/*.gif
-public_html/img/*.bmp
-public_html/img/*.svg
-public_html/img/*.webp
+# Imágenes
+/public_html/img/**
+/client/public/images/**
 
 ###> phpunit/phpunit ###
 /phpunit.xml
