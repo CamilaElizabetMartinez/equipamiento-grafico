@@ -1,17 +1,17 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './Panel.css';
 
 const Panel = () => {
   const { user, logout } = useAuth();
 
-  //ESTADOS PRINCIPALES
+  // ESTADOS PRINCIPALES
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('products');
 
-  //Formularios
+  // FORMULARIOS
   const [showProductForm, setShowProductForm] = useState(false);
   const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -20,9 +20,14 @@ const Panel = () => {
   const [productForm, setProductForm] = useState({
     idproduct: '', titulo: '', descripcion: '', precio: '', idcategoria: ''
   });
+  const [imageFiles, setImageFiles] = useState([]);
   const [categoryForm, setCategoryForm] = useState({ id: '', nombre: '' });
 
-  //CARGAR DATOS (Promise.all optimizado)
+  const updateImageFiles = useCallback((files) => {
+    setImageFiles(files);
+  }, []);
+
+  // CARGAR DATOS
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
@@ -31,7 +36,6 @@ const Panel = () => {
         fetch('/api/categories', { credentials: 'include' })
       ]);
 
-      //Productos
       if (productsRes.ok) {
         const productsData = await productsRes.json();
         setProducts(Array.isArray(productsData) ? productsData : []);
@@ -39,7 +43,6 @@ const Panel = () => {
         setProducts([]);
       }
 
-      //Categorías (maneja {status: "success", data: [...]})
       if (categoriesRes.ok) {
         const categoriesResult = await categoriesRes.json();
         setCategories(categoriesResult?.data && Array.isArray(categoriesResult.data) ? categoriesResult.data : []);
@@ -55,12 +58,13 @@ const Panel = () => {
     }
   }, []);
 
-  //CRUD PRODUCTOS (unificado)
+  // CRUD PRODUCTOS
   const saveProduct = useCallback(async (e) => {
     e.preventDefault();
     const isEditing = !!editingProduct;
     const url = isEditing ? `/api/products/${productForm.idproduct}` : '/api/products';
-    
+    const filesToUpload = [...imageFiles];
+
     try {
       const response = await fetch(url, {
         method: isEditing ? 'PUT' : 'POST',
@@ -74,18 +78,65 @@ const Panel = () => {
         })
       });
 
-      if (response.ok) {
-        alert(`Producto ${isEditing ? 'actualizado' : 'creado'}`);
-        resetProductForm();
-        fetchData();
-      } else {
+      if (!response.ok) {
         const error = await response.json();
-        alert((error.error || 'Error guardando producto'));
+        alert(error.message || error.error || 'Error guardando producto');
+        return;
       }
+
+      const result = await response.json();
+      const productId = isEditing ? productForm.idproduct : result.data?.idproduct;
+
+      // SUBIR IMÁGENES
+      if (filesToUpload.length > 0 && productId) {
+        const MAX_FILE_SIZE_MB = 10;
+        const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+        const uploadErrors = [];
+
+        for (const file of filesToUpload) {
+          if (file.size > MAX_FILE_SIZE_BYTES) {
+            uploadErrors.push(`"${file.name}" supera el límite de ${MAX_FILE_SIZE_MB}MB`);
+            continue;
+          }
+
+          const formData = new FormData();
+          formData.append('image', file);
+
+          try {
+            const imgRes = await fetch(`/api/products/${productId}/images`, {
+              method: 'POST',
+              credentials: 'include',
+              body: formData
+            });
+
+            if (!imgRes.ok) {
+              let reason = `HTTP ${imgRes.status}`;
+              try {
+                const errBody = await imgRes.json();
+                reason = errBody.message || errBody.error || reason;
+              } catch (_) {
+                const textResponse = await imgRes.text();
+                reason = textResponse || reason;
+              }
+              uploadErrors.push(`"${file.name}": ${reason}`);
+            }
+          } catch (networkError) {
+            uploadErrors.push(`"${file.name}": Error de red - ${networkError.message}`);
+          }
+        }
+
+        if (uploadErrors.length > 0) {
+          alert('Producto guardado, pero algunas imágenes fallaron:\n' + uploadErrors.join('\n'));
+        }
+      }
+
+      alert(`Producto ${isEditing ? 'actualizado' : 'creado'}`);
+      resetProductForm();
+      fetchData();
     } catch (error) {
       alert('Error de conexión');
     }
-  }, [productForm, editingProduct, fetchData]);
+  }, [productForm, editingProduct, fetchData, imageFiles]);
 
   const deleteProduct = useCallback(async (id) => {
     try {
@@ -102,7 +153,7 @@ const Panel = () => {
     }
   }, [products]);
   
-  //CRUD CATEGORÍAS (unificado)
+  // CRUD CATEGORÍAS
   const saveCategory = useCallback(async (e) => {
     e.preventDefault();
     const isEditing = !!editingCategory;
@@ -148,12 +199,13 @@ const Panel = () => {
     }
   }, [fetchData]);
 
-  //UTILIDADES
+  // UTILIDADES
   const resetProductForm = useCallback(() => {
     setShowProductForm(false);
     setEditingProduct(null);
     setProductForm({ idproduct: '', titulo: '', descripcion: '', precio: '', idcategoria: '' });
-  }, []);
+    updateImageFiles([]);
+  }, [updateImageFiles]);
 
   const resetCategoryForm = useCallback(() => {
     setShowCategoryForm(false);
@@ -190,7 +242,6 @@ const Panel = () => {
     setShowCategoryForm(true);
   }, [resetCategoryForm]);
 
-  //EFECTOS
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -294,6 +345,8 @@ const Panel = () => {
           onClose={resetProductForm}
           onChange={setProductForm}
           onSubmit={saveProduct}
+          imageFiles={imageFiles}
+          onImageChange={updateImageFiles}
         />
         
         <CategoryModal
@@ -309,7 +362,7 @@ const Panel = () => {
   );
 };
 
-//TABLA PRODUCTOS
+// TABLA PRODUCTOS
 const ProductsTable = ({ products, onEdit, onDelete }) => (
   <div className="table-container">
     <table className="data-table">
@@ -367,7 +420,7 @@ const ProductsTable = ({ products, onEdit, onDelete }) => (
   </div>
 );
 
-// 📊 TABLA CATEGORÍAS
+// TABLA CATEGORÍAS
 const CategoriesTable = ({ categories, onEdit, onDelete }) => (
   <div className="table-container">
     <table className="data-table">
@@ -416,16 +469,42 @@ const CategoriesTable = ({ categories, onEdit, onDelete }) => (
   </div>
 );
 
-//MODAL PRODUCTOS
-const ProductModal = ({ 
-  isOpen, 
-  productForm, 
-  categories, 
-  onClose, 
-  onChange, 
-  onSubmit 
+// MODAL PRODUCTOS
+const ProductModal = ({
+  isOpen,
+  product,
+  productForm,
+  categories,
+  onClose,
+  onChange,
+  onSubmit,
+  imageFiles,
+  onImageChange
 }) => {
   if (!isOpen) return null;
+
+  const MAX_IMAGES = 5;
+  const existingImages = product?.multimedia || [];
+  const totalImages = existingImages.length + imageFiles.length;
+  const canAddMore = totalImages < MAX_IMAGES;
+
+  const handleFileSelect = useCallback((e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      return;
+    }
+
+    const selected = Array.from(e.target.files);
+    const remaining = MAX_IMAGES - totalImages;
+    const toAdd = selected.slice(0, remaining);
+    
+    onImageChange([...imageFiles, ...toAdd]);
+    e.target.value = '';
+  }, [imageFiles, totalImages, onImageChange, MAX_IMAGES]);
+
+  const removeNewImage = useCallback((index) => {
+    const newFiles = imageFiles.filter((_, i) => i !== index);
+    onImageChange(newFiles);
+  }, [imageFiles, onImageChange]);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -488,6 +567,47 @@ const ProductModal = ({
               </select>
             </div>
           </div>
+          <div className="form-group">
+            <label>
+              Imágenes del Producto
+              <span className="file-input-counter">{totalImages}/{MAX_IMAGES}</span>
+            </label>
+            {canAddMore && (
+              <FileUploadArea 
+                onFileSelect={handleFileSelect}
+                totalImages={totalImages}
+                maxImages={MAX_IMAGES}
+              />
+            )}
+            {totalImages > 0 && (
+              <div className="file-preview-grid">
+                {existingImages.map((img, index) => (
+                  <div key={`e-${index}`} className="file-preview-item">
+                    <img src={img.url} alt={`Imagen ${index + 1}`} />
+                    <span className="file-preview-badge">Guardada</span>
+                  </div>
+                ))}
+                {imageFiles.map((file, index) => (
+                  <div key={`n-${index}`} className="file-preview-item">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Nueva ${index + 1}`}
+                    />
+                    <button
+                      type="button"
+                      className="file-preview-remove"
+                      onClick={() => removeNewImage(index)}
+                      title="Quitar imagen"
+                    >
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           <div className="modal-actions">
             <button type="button" onClick={onClose} className="btn-secondary">
               Cancelar
@@ -502,7 +622,7 @@ const ProductModal = ({
   );
 };
 
-//MODAL CATEGORÍAS
+// MODAL CATEGORÍAS
 const CategoryModal = ({ 
   isOpen, 
   categoryForm, 
@@ -545,6 +665,54 @@ const CategoryModal = ({
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  );
+};
+
+// COMPONENTE PARA CARGA DE ARCHIVOS
+const FileUploadArea = ({ onFileSelect, totalImages, maxImages }) => {
+  const fileInputRef = useRef(null);
+
+  const handleClick = useCallback(() => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  }, []);
+
+  const handleFileChange = useCallback((e) => {
+    onFileSelect(e);
+  }, [onFileSelect]);
+
+  return (
+    <div className="file-input-wrapper">
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleFileChange}
+        className="file-input-hidden"
+        style={{ display: 'none' }}
+      />
+      <div 
+        className="file-input-label" 
+        onClick={handleClick}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleClick();
+          }
+        }}
+      >
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="file-input-icon">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Añadir imagen{totalImages > 0 ? ' (puedes añadir más)' : '...'}
+        <span className="file-upload-hint">
+          ({totalImages}/{maxImages} imágenes)
+        </span>
       </div>
     </div>
   );
