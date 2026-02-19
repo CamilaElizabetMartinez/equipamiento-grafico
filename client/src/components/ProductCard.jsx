@@ -43,7 +43,7 @@ const ProductCard = ({ product }) => {
         {images.length > 0 ? (
           <>
             <img
-              src={`http://localhost:8000/${images[currentImageIndex]?.url || images[0]?.url}`}
+              src={images[currentImageIndex]?.url || images[0]?.url}
               alt={product.titulo}
               className="product-image"
               onError={(e) => {

@@ -6,6 +6,20 @@ const Footer = () => {
       <div class="footer-container">
         <div class="footer-section">
           <h3 class="footer-title">Equipamiento Gráfico Monte Grande</h3>
+          <p>Conseguimos y vendemos maquinaria gráfica profesional</p>
+        </div>
+        {/* <div class="footer-section">
+          <h3 class="footer-title">Explorar</h3>
+          <nav class="footer-nav">
+            <a class="footer-nav-link" href="/">Inicio</a>
+            <a class="footer-nav-link" href="/catalogo">Catálogo</a>
+            <a class="footer-nav-link" href="/nosotros">Nosotros</a>
+            <a class="footer-nav-link" href="/contacto">Contacto</a>
+            <a class="footer-nav-link" href="/login">Iniciar Sesión</a>
+          </nav>
+        </div> */}
+        <div class="footer-section">
+          <h3 class="footer-title">Contacto</h3>
           <div class="footer-info">
             <div class="footer-item">
               <svg class="footer-icon" fill="none" stroke="white" viewBox="0 0 24 24">
@@ -49,7 +63,7 @@ const Footer = () => {
           </div>
         </div>
         <div class="footer-section">
-          <h3 class="footer-title">Enlaces Rápidos</h3>
+          <h3 class="footer-title">Explorar</h3>
           <nav class="footer-nav">
             <a class="footer-nav-link" href="/">Inicio</a>
             <a class="footer-nav-link" href="/catalogo">Catálogo</a>
