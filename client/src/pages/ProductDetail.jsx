@@ -2,10 +2,9 @@ import { useState, useEffect, useCallback, useMemo, useReducer } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetail.css';
 
-const WHATSAPP_NUMBER = '541161100402';
+const WHATSAPP_NUMBER = '541156347845';
 const PLACEHOLDER_IMG = 'https://via.placeholder.com/600x600/7C9692/FFFFFF?text=Producto';
 
-// 🧠 STATE MACHINE CON REDUCER
 const productReducer = (state, action) => {
   switch (action.type) {
     case 'LOADING':
@@ -34,7 +33,7 @@ const ProductDetail = () => {
     isModalOpen: false
   });
 
-  //LOAD DATA - UNA SOLA FUNCIÓN
+  //LOAD DATA
   useEffect(() => {
     const loadProduct = async () => {
       dispatch({ type: 'LOADING' });
@@ -50,11 +49,11 @@ const ProductDetail = () => {
     loadProduct();
   }, [id]);
 
-  //COMPUTED VALUES - useMemo
+  //COMPUTED VALUES
   const images = useMemo(() => state.product?.multimedia || [], [state.product]);
   const hasMultipleImages = images.length > 1;
 
-  //HANDLERS - MÍNIMOS
+  //HANDLERS
   const navigateImage = useCallback((direction) => {
     if (!hasMultipleImages) return;
     const nextIndex = direction === 'next'
@@ -71,12 +70,14 @@ const ProductDetail = () => {
       style: 'currency',
       currency: 'ARS'
     }).format(price),
-    getImageUrl: (url) => url || PLACEHOLDER_IMG
+    getImageUrl: (url) => {
+      if (!url) return PLACEHOLDER_IMG;
+      return url.startsWith('/') ? url : '/' + url;
+    }
   }), []);
 
   const { product, loading, error, isModalOpen, currentImageIndex } = state;
 
-  //RENDERS OPTIMIZADOS
   if (loading) return <LoadingView />;
   if (error || !product) return <ErrorView error={error} onBack={() => navigate('/catalogo')} />;
 
@@ -99,7 +100,7 @@ const ProductDetail = () => {
   );
 };
 
-//LAYOUT PRINCIPAL
+//LAYOUT
 const ProductDetailLayout = ({
   product, images, currentIndex, isModalOpen,
   onBack, onWhatsApp, onNavigateImage, onToggleModal, onSetImageIndex, utils
@@ -135,7 +136,7 @@ const ProductDetailLayout = ({
   </div>
 );
 
-//COMPONENTES ATÓMICOS (sin lógica)
+//COMPONENTES ATÓMICOS
 const BackButton = ({ onClick }) => (
   <button className="btn-back" onClick={onClick}>← Volver al catálogo</button>
 );
