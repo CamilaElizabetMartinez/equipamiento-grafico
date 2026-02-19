@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -8,6 +9,8 @@ import ProductDetail from './pages/ProductDetail';
 import About from './pages/About';
 import Contacto from './pages/Contacto';
 import Login from './pages/Login';
+import Panel from './pages/Panel';
+
 import './App.css';
 
 function App() {
@@ -24,6 +27,11 @@ function App() {
             <Route path="/nosotros" element={<About />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/panel" element={
+              <ProtectedRoute>
+                <Panel />
+              </ProtectedRoute>
+            } />
           </Routes>
 
           <Footer />
