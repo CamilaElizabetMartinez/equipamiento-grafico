@@ -12,14 +12,17 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/me', {
+      const response = await fetch('/api/auth/me', {
         credentials: 'include',
       });
 
       if (response.ok) {
-        const data = await response.json();
-        if (data.authenticated) {
-          setUser(data.user);
+        const result = await response.json();
+        // Nuevo formato: {status: 'success', data: {...}}
+        const data = result.status === 'success' ? result.data : result;
+
+        if (data && (data.id || data.authenticated !== false)) {
+          setUser(data);
         }
       }
     } catch (error) {
@@ -31,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,13 +43,17 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
       if (response.ok) {
-        setUser(data.user);
+        // Nuevo formato: {status: 'success', data: {...}, message: '...'}
+        const userData = result.status === 'success' ? result.data : result.user;
+        setUser(userData);
         return { success: true };
       } else {
-        return { success: false, error: data.error || 'Error al iniciar sesión' };
+        // Nuevo formato de error: {status: 'fail', message: '...'}
+        const errorMessage = result.message || result.error || 'Error al iniciar sesión';
+        return { success: false, error: errorMessage };
       }
     } catch (error) {
       return { success: false, error: 'Error de conexión' };
@@ -55,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (nombre, email, password) => {
     try {
-      const response = await fetch('http://localhost:8000/api/auth/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,12 +70,14 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ nombre, email, password }),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
       if (response.ok) {
         return { success: true };
       } else {
-        return { success: false, error: data.error || 'Error al registrarse' };
+        // Nuevo formato de error: {status: 'fail', message: '...'}
+        const errorMessage = result.message || result.error || 'Error al registrarse';
+        return { success: false, error: errorMessage };
       }
     } catch (error) {
       return { success: false, error: 'Error de conexión' };
@@ -77,7 +86,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:8000/api/auth/logout', {
+      await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include',
       });
