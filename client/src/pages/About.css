@@ -1,13 +1,31 @@
+/* ─── ABOUT ────────────────────────────── */
+:root {
+  --about-pad: 5.5rem;
+  --about-gap: 3.5rem;
+  --title-size: 2.8rem;
+  --title-mb: 3.5rem;
+  --h2-size: 1.8rem;
+  --p-size: 1.05rem;
+  --section-gap: 2.5rem;
+}
+
 .about {
-  padding: 3.5rem 0;
+  --pad: var(--about-pad);
+  --gap: var(--about-gap);
+  --title-size: var(--title-size);
+  --title-mb: var(--title-mb);
+  --h2-size: var(--h2-size);
+  --p-size: var(--p-size);
+
+  padding: var(--pad) 0;
   min-height: 60vh;
 }
 
 .page-title {
   text-align: center;
-  font-size: 2.8rem;
+  font-size: var(--title-size);
   color: var(--primary-color);
-  margin-bottom: 3.5rem;
+  margin-bottom: var(--title-mb);
   font-weight: 700;
   letter-spacing: 0.5px;
 }
@@ -15,152 +33,62 @@
 .about-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 3.5rem;
+  gap: var(--gap);
   align-items: flex-start;
 }
 
 .about-image {
-  flex: 1;
-  min-width: 300px;
+  flex: 1; min-width: 300px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.about-image:hover {
-  transform: scale(1.02);
-  box-shadow: var(--shadow-hover);
-}
-
-.about-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+.about-image:hover { transform: scale(1.02); box-shadow: var(--shadow-hover); }
+.about-image img { width: 100%; height: auto; display: block; }
 
 .about-info {
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  flex: 1; min-width: 300px;
+  display: flex; flex-direction: column;
+  gap: var(--section-gap);
 }
 
 .about-section h2 {
-  font-size: 1.8rem;
+  font-size: var(--h2-size);
   color: var(--primary-color);
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
 .about-section p {
-  line-height: 1.9;
-  color: var(--text-dark);
-  margin-bottom: 1.2rem;
-  text-align: justify;
-  font-size: 1.05rem;
+  line-height: 1.9; color: var(--text-dark);
+  margin-bottom: 1.2rem; text-align: justify;
+  font-size: var(--p-size);
 }
 
 .signature {
-  margin-top: 2rem;
-  color: var(--primary-color);
-  font-weight: 600;
-  font-size: 1.1rem;
+  margin-top: 2rem; color: var(--primary-color);
+  font-weight: 600; font-size: 1.1rem;
   font-style: italic;
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .about {
-    padding: 3rem 0;
-  }
-
-  .page-title {
-    font-size: 2.4rem;
-    margin-bottom: 3rem;
-  }
-
-  .about-content {
-    gap: 2.8rem;
-  }
-
-  .about-section h2 {
-    font-size: 1.6rem;
-  }
-
-  .about-section p {
-    font-size: 1rem;
-  }
+/* ─── BREAKPOINTS ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .about { --pad: 3rem; --gap: 2.8rem; --title-size: 2.4rem; --title-mb: 3rem; --h2-size: 1.6rem; --p-size: 1rem; }
 }
 
 @media (max-width: 768px) {
-  .about {
-    padding: 2.5rem 0;
-  }
-
-  .page-title {
-    font-size: 2.2rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .about-content {
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-
-  .about-image {
-    min-width: 100%;
-    border-radius: 10px;
-  }
-
-  .about-info {
-    min-width: 100%;
-    gap: 2rem;
-  }
-
-  .about-section h2 {
-    font-size: 1.6rem;
-  }
-
-  .about-section p {
-    text-align: left;
-    font-size: 1rem;
-    line-height: 1.8;
-  }
-
-  .signature {
-    font-size: 1rem;
-  }
+  .about { --pad: 2.5rem; --title-size: 2.2rem; --title-mb: 2.5rem; --gap: 2.5rem; --h2-size: 1.6rem; --p-size: 1rem; }
+  .about-content { flex-direction: column; }
+  .about-image, .about-info { min-width: 100%; }
+  .about-info { gap: 2rem; }
+  .about-section p { text-align: left; line-height: 1.8; }
+  .signature { font-size: 1rem; }
 }
 
 @media (max-width: 480px) {
-  .about {
-    padding: 2rem 0;
-  }
-
-  .page-title {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-  }
-
-  .about-content {
-    gap: 2rem;
-  }
-
-  .about-info {
-    gap: 1.5rem;
-  }
-
-  .about-section h2 {
-    font-size: 1.4rem;
-  }
-
-  .about-section p {
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-  }
-
-  .signature {
-    font-size: 0.95rem;
-    margin-top: 1.5rem;
-  }
+  .about { --pad: 2rem; --gap: 2rem; --title-size: 1.8rem; --title-mb: 2rem; --h2-size: 1.4rem; --p-size: 0.95rem; }
+  .about-info { gap: 1.5rem; }
+  .about-section p { margin-bottom: 1rem; }
+  .signature { font-size: 0.95rem; margin-top: 1.5rem; }
 }
