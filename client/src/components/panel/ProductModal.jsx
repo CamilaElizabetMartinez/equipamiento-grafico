@@ -18,7 +18,8 @@ const ProductModal = ({
   onChange,
   onSubmit,
   imageFiles,
-  onImageChange
+  onImageChange,
+  onDeleteImage
 }) => {
   const existingImages = product?.multimedia || [];
   const totalImages = existingImages.length + imageFiles.length;
@@ -114,7 +115,14 @@ const ProductModal = ({
                 {existingImages.map((img, index) => (
                   <div key={`e-${index}`} className="file-preview-item">
                     <img src={img.url} alt={`Imagen ${index + 1}`} />
-                    <span className="file-preview-badge">Guardada</span>
+                    <button
+                      type="button"
+                      className="file-preview-remove"
+                      onClick={() => onDeleteImage(productForm.idproduct, img.id)}
+                      title="Eliminar imagen"
+                    >
+                      <CloseIcon />
+                    </button>
                   </div>
                 ))}
                 {imageFiles.map((file, index) => (
