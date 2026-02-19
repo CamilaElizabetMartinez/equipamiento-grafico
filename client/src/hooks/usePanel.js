@@ -168,6 +168,26 @@ export const usePanel = () => {
     }
   }, [productForm, editingProduct, imageFiles, fetchData, resetProductForm]);
 
+  const deleteImage = useCallback(async (productId, imageId) => {
+    try {
+      const res = await fetch(`/api/products/${productId}/images/${imageId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.message || 'Error al eliminar la imagen');
+        return;
+      }
+      setEditingProduct(prev => ({
+        ...prev,
+        multimedia: prev.multimedia.filter(m => m.id !== imageId)
+      }));
+    } catch {
+      alert('Error de conexión');
+    }
+  }, []);
+
   const deleteProduct = useCallback(async (id) => {
     try {
       const response = await fetch(`/api/products/${id}`, {
@@ -243,5 +263,6 @@ export const usePanel = () => {
     saveCategory, deleteCategory,
     openProductForm, resetProductForm,
     openCategoryForm, resetCategoryForm,
+    deleteImage,
   };
 };

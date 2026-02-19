@@ -344,6 +344,45 @@ class ProductApiController extends AbstractController
     }
 
     /**
+     * @Route("/{productId}/images/{imageId}", name="delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(int $productId, int $imageId, EntityManagerInterface $em, SessionInterface $session): JsonResponse
+    {
+        if ($authError = $this->checkAuth($session)) {
+            return $authError;
+        }
+
+        try {
+            $multimedia = $em->getRepository(Multimedia::class)->find($imageId);
+
+            if (!$multimedia) {
+                return ApiResponse::fail('Imagen no encontrada', null, 404);
+            }
+
+            if ($multimedia->getIdproduct()->getIdproduct() !== $productId) {
+                return ApiResponse::fail('La imagen no pertenece al producto indicado', null, 403);
+            }
+
+            $filePath = $this->getParameter('kernel.project_dir') . '/public_html' . $multimedia->getUrl();
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
+            $em->remove($multimedia);
+            $em->flush();
+
+            return ApiResponse::success(null, 'Imagen eliminada exitosamente');
+        } catch (\Exception $e) {
+            $this->logger->error('Error deleting image', [
+                'exception' => $e->getMessage(),
+                'product_id' => $productId,
+                'image_id' => $imageId,
+            ]);
+            return ApiResponse::error('Error al eliminar la imagen');
+        }
+    }
+
+    /**
      * @Route("/{id}", name="show", methods={"GET"})
      * Pública - No requiere autenticación
      */

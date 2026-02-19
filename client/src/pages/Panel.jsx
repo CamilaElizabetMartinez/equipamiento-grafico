@@ -20,6 +20,7 @@ const Panel = () => {
     saveCategory, deleteCategory,
     openProductForm, resetProductForm,
     openCategoryForm, resetCategoryForm,
+    deleteImage,
   } = usePanel();
 
   if (loading) {
@@ -118,6 +119,7 @@ const Panel = () => {
           onSubmit={saveProduct}
           imageFiles={imageFiles}
           onImageChange={setImageFiles}
+          onDeleteImage={deleteImage}
         />
 
         <CategoryModal
