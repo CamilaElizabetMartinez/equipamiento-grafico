@@ -17,13 +17,10 @@
   animation: whatsappPulse 2s ease-in-out 3;
 }
 
-.whatsapp-floating-btn.expanded {
+.whatsapp-floating-btn:hover {
   max-width: 300px;
   gap: 8px;
   padding: 24px 30px 24px 24px;
-}
-
-.whatsapp-floating-btn:hover {
   animation: none;
 }
 
@@ -43,7 +40,7 @@
   transition: opacity 0.2s ease, width 0.3s ease;
 }
 
-.whatsapp-floating-btn.expanded .whatsapp-text {
+.whatsapp-floating-btn:hover .whatsapp-text {
   opacity: 1;
   width: auto;
 }
@@ -68,7 +65,7 @@
     padding: 12px;
   }
 
-  .whatsapp-floating-btn.expanded {
+  .whatsapp-floating-btn:hover {
     padding: 12px 16px 12px 12px;
   }
 
