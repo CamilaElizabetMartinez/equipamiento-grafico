@@ -37,11 +37,11 @@ const Footer = () => (
           </div>
           <div className="footer-item">
             <Icon d={PHONE_D} />
-            <a href="tel:+541161100402" className="footer-link">+(54) 11 6110 0402</a>
+            <a href="tel:+541161100402" className="footer-link">+(54) 11 6110 0402 — Carlos Gonzalez</a>
           </div>
           <div className="footer-item">
             <Icon d={PHONE_D} />
-            <a href="tel:+541144787505" className="footer-link">+(54) 11 4478 7505</a>
+            <a href="tel:+541144787505" className="footer-link">+(54) 11 4478 7505 — Lionel Perez</a>
           </div>
           <div className="footer-item">
             <Icon d={MAIL_D} />
