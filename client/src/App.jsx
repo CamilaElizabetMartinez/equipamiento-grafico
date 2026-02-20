@@ -4,6 +4,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import WhatsAppButton from './components/WhatsAppButton';
 import Catalogo from './pages/Catalogo';
 import ProductDetail from './pages/ProductDetail';
 import About from './pages/About';
@@ -14,31 +15,32 @@ import Panel from './pages/Panel';
 import './App.css';
 
 function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <div className="app">
-          <Header />
+ return (
+   <AuthProvider>
+     <Router>
+       <div className="app">
+         <Header />
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalogo" element={<Catalogo />} />
-            <Route path="/producto/:id" element={<ProductDetail />} />
-            <Route path="/nosotros" element={<About />} />
-            <Route path="/contacto" element={<Contacto />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/panel" element={
-              <ProtectedRoute>
-                <Panel />
-              </ProtectedRoute>
-            } />
-          </Routes>
+         <Routes>
+           <Route path="/" element={<Home />} />
+           <Route path="/catalogo" element={<Catalogo />} />
+           <Route path="/producto/:id" element={<ProductDetail />} />
+           <Route path="/nosotros" element={<About />} />
+           <Route path="/contacto" element={<Contacto />} />
+           <Route path="/login" element={<Login />} />
+           <Route path="/panel" element={
+             <ProtectedRoute>
+               <Panel />
+             </ProtectedRoute>
+           } />
+         </Routes>
+         <Footer />
+         <WhatsAppButton />
+       </div>
+     </Router>
+   </AuthProvider>
+ );
 
-          <Footer />
-        </div>
-      </Router>
-    </AuthProvider>
-  );
 }
 
 export default App;
