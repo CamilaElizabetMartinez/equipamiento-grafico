@@ -52,7 +52,6 @@ body {
 /* TÍTULOS CON DIN BOLD */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-bold);
-  font-weight: 700;
 }
 
 img {
