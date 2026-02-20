@@ -109,18 +109,19 @@ const Panel = () => {
           )}
         </div>
 
-        <ProductModal
-          isOpen={showProductForm}
-          product={editingProduct}
-          productForm={productForm}
-          categories={categories}
-          onClose={resetProductForm}
-          onChange={setProductForm}
-          onSubmit={saveProduct}
-          imageFiles={imageFiles}
-          onImageChange={setImageFiles}
-          onDeleteImage={deleteImage}
-        />
+        {showProductForm && (
+          <ProductModal
+            product={editingProduct}
+            productForm={productForm}
+            categories={categories}
+            onClose={resetProductForm}
+            onChange={setProductForm}
+            onSubmit={saveProduct}
+            imageFiles={imageFiles}
+            onImageChange={setImageFiles}
+            onDeleteImage={deleteImage}
+          />
+        )}
 
         <CategoryModal
           isOpen={showCategoryForm}

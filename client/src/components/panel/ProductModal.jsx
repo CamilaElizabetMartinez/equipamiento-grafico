@@ -1,5 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import FileUploadArea from './FileUploadArea';
+import ImageCropModal from './ImageCropModal';
 
 const MAX_IMAGES = 5;
 
@@ -10,7 +11,6 @@ const CloseIcon = () => (
 );
 
 const ProductModal = ({
-  isOpen,
   product,
   productForm,
   categories,
@@ -25,21 +25,49 @@ const ProductModal = ({
   const totalImages = existingImages.length + imageFiles.length;
   const canAddMore = totalImages < MAX_IMAGES;
 
+  const [cropQueue, setCropQueue] = useState([]);
+  const currentCrop = cropQueue[0] ?? null;
+
   const handleFileSelect = useCallback((e) => {
     if (!e.target.files?.length) return;
     const remaining = MAX_IMAGES - totalImages;
-    const toAdd = Array.from(e.target.files).slice(0, remaining);
-    onImageChange([...imageFiles, ...toAdd]);
+    const toAdd = Array.from(e.target.files).slice(0, remaining).map(file => ({
+      file,
+      previewUrl: URL.createObjectURL(file),
+    }));
+    setCropQueue(prev => [...prev, ...toAdd]);
     e.target.value = '';
-  }, [imageFiles, totalImages, onImageChange]);
+  }, [totalImages]);
+
+  const handleCropConfirm = useCallback((croppedFile) => {
+    setCropQueue(prev => {
+      URL.revokeObjectURL(prev[0].previewUrl);
+      return prev.slice(1);
+    });
+    onImageChange(prev => [...prev, croppedFile]);
+  }, [onImageChange]);
+
+  const handleCropCancel = useCallback(() => {
+    setCropQueue(prev => {
+      URL.revokeObjectURL(prev[0].previewUrl);
+      return prev.slice(1);
+    });
+  }, []);
 
   const removeNewImage = useCallback((index) => {
     onImageChange(imageFiles.filter((_, i) => i !== index));
   }, [imageFiles, onImageChange]);
 
-  if (!isOpen) return null;
-
   return (
+    <>
+    {currentCrop && (
+      <ImageCropModal
+        imageSrc={currentCrop.previewUrl}
+        fileName={currentCrop.file.name}
+        onConfirm={handleCropConfirm}
+        onCancel={handleCropCancel}
+      />
+    )}
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
@@ -152,6 +180,7 @@ const ProductModal = ({
         </form>
       </div>
     </div>
+    </>
   );
 };
 
