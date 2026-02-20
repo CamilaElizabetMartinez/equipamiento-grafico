@@ -1,17 +1,17 @@
 {
   "slides": [
     {
-      "image": "/images/carousel/slide1.jpg",
+      "image": "/images/carousel/slide2.jpg",
       "title": "Equipamiento Gráfico Profesional",
-      "description": "Maquinaria revisada con garantía completa"
+      "description": "Maquinaria usada en funcionamiento"
     },
     {
-      "image": "/images/carousel/slide2.jpg",
+      "image": "/images/carousel/slide3.jpg",
       "title": "Oportunidades en Maquinaria Gráfica",
       "description": "Equipos de ocasión en perfecto estado"
     },
     {
-      "image": "/images/carousel/slide3.jpg",
+      "image": "/images/carousel/slide4.jpg",
       "title": "Más de 30 Años de Experiencia",
       "description": "Confianza y calidad en cada máquina que ofrecemos"
     }
