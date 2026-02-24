@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 1.5rem 0;
+  padding: 1.2rem 0;
   gap: 1rem;
   position: relative;
 }
@@ -28,7 +28,7 @@
 }
 
 .logo h1 {
-  font-size: 2rem;
+  font-size: 1.3rem;
   color: var(--primary-color);
   font-weight: 700;
   margin-bottom: 0.3rem;
@@ -36,26 +36,76 @@
 }
 
 .logo .subtitle {
-  font-size: 0.95rem;
+  font-size: 0.7rem;
   color: var(--text-light);
   letter-spacing: 1.2px;
   text-transform: uppercase;
   font-weight: 500;
 }
 
-.nav {
+.hamburger {
   display: flex;
-  gap: 2rem;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 101;
+  gap: 5px;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  gap: 0;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid var(--primary-color);
+}
+
+.nav.active {
+  max-height: 500px;
+  padding: 1rem 0;
 }
 
 .nav-link {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--text-light);
   text-transform: uppercase;
-  padding: 0.6rem 1.2rem;
+  padding: 0.9rem 1.5rem;
   transition: all 0.3s ease;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .nav-link::after {
@@ -68,17 +118,15 @@
   background-color: var(--primary-color);
   transition: all 0.3s ease;
   transform: translateX(-50%);
+  display: none;
+}
+
+.nav-link:hover {
+  background-color: rgba(124, 150, 146, 0.05);
 }
 
 .nav-link:hover::after {
   width: 80%;
-}
-
-.user-menu {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  flex-shrink: 0;
 }
 
 /* Enlace al Panel */
@@ -110,10 +158,23 @@
   flex-shrink: 0;
 }
 
+.user-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
 .user-name {
   color: var(--text-dark);
   font-weight: 600;
   font-size: 1rem;
+  text-align: center;
+  padding: 0.5rem 0;
 }
 
 .btn-login,
@@ -124,6 +185,8 @@
   font-weight: 600;
   transition: all 0.3s ease;
   white-space: nowrap;
+  width: 100%;
+  text-align: center;
 }
 
 .btn-login {
@@ -152,68 +215,7 @@
   background-color: rgba(124, 150, 146, 0.05);
 }
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 101;
-  gap: 5px;
-}
-
-.hamburger span {
-  width: 28px;
-  height: 3px;
-  background-color: var(--primary-color);
-  border-radius: 3px;
-  transition: all 0.3s ease;
-  display: block;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(8px, 8px);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(8px, -8px);
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .header-content {
-    padding: 1.3rem 0;
-  }
-
-  .logo h1 {
-    font-size: 1.7rem;
-  }
-
-  .nav {
-    gap: 1.5rem;
-  }
-
-  .nav-link {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1.2rem 0;
-  }
-
-  .logo {
-    text-align: left;
-  }
-
+@media (min-width: 30em) {
   .logo h1 {
     font-size: 1.6rem;
   }
@@ -222,86 +224,106 @@
     font-size: 0.85rem;
   }
 
-  .hamburger {
-    display: flex;
-  }
-
-  .nav {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: var(--white);
-    flex-direction: column;
-    gap: 0;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-top: 2px solid var(--primary-color);
-  }
-
-  .nav.active {
-    max-height: 500px;
-    padding: 1rem 0;
+  .hamburger span {
+    width: 28px;
   }
 
   .nav-link {
     font-size: 1rem;
     padding: 1rem 2rem;
-    width: 100%;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .nav-link:hover {
-    background-color: rgba(124, 150, 146, 0.05);
-  }
-
-  .nav-link::after {
-    display: none;
   }
 
   .user-menu {
-    flex-direction: column;
-    gap: 0.8rem;
-    width: 100%;
     padding: 1rem 2rem;
-    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media (min-width: 48em) {
+  .header-content {
+    padding: 1.3rem 0;
+  }
+
+  .logo h1 {
+    font-size: 1.7rem;
+  }
+
+  .logo .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: transparent;
+    gap: 1.5rem;
+    padding: 0;
+    max-height: none;
+    overflow: visible;
+    box-shadow: none;
+    border-top: none;
+  }
+
+  .nav.active {
+    max-height: none;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    width: auto;
+    border-bottom: none;
+  }
+
+  .nav-link::after {
+    display: block;
+  }
+
+  .nav-link:hover {
+    background-color: transparent;
+  }
+
+  .user-menu {
+    flex-direction: row;
+    gap: 1.2rem;
+    width: auto;
+    padding: 0;
+    border-bottom: none;
   }
 
   .user-name {
-    text-align: center;
-    padding: 0.5rem 0;
+    text-align: left;
+    padding: 0;
   }
 
   .btn-login,
   .btn-logout {
-    width: 100%;
-    text-align: center;
+    width: auto;
+    text-align: left;
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 64em) {
+  .header-content {
+    padding: 1.5rem 0;
+  }
+
   .logo h1 {
-    font-size: 1.3rem;
+    font-size: 2rem;
   }
 
-  .logo .subtitle {
-    font-size: 0.7rem;
-  }
-
-  .hamburger span {
-    width: 24px;
+  .nav {
+    gap: 2rem;
   }
 
   .nav-link {
-    font-size: 0.95rem;
-    padding: 0.9rem 1.5rem;
-  }
-
-  .user-menu {
-    padding: 0.8rem 1.5rem;
+    font-size: 1.05rem;
+    padding: 0.6rem 1.2rem;
   }
 }
