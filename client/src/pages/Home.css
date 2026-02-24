@@ -11,7 +11,7 @@
 .hero-section h1 {
   font-size: clamp(1.8rem, 4vw, 3.5rem);
   color: var(--primary-color);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -50,8 +50,8 @@
 
 .features-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
+  flex-direction: column;
+  gap: 2rem;
   margin-top: 2.5rem;
   justify-content: center;
 }
@@ -63,9 +63,8 @@
   border-radius: 12px;
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
-  flex: 1;
-  min-width: 280px;
-  max-width: 350px;
+  min-width: 100%;
+  max-width: 100%;
 }
 
 .feature-card:hover {
@@ -74,6 +73,8 @@
 }
 
 .feature-icon {
+  display: inline-grid;
+  justify-items: center;
   font-size: clamp(2.5rem, 3.5vw, 3.5rem);
   margin-bottom: 0.3rem;
   color: var(--primary-color);
@@ -96,23 +97,23 @@
   font-size: clamp(0.95rem, 1vw, 1rem);
 }
 
-@media (max-width: 768px) {
-  .hero-section h1 {
-    margin-bottom: 1.2rem;
-  }
+/* ─── BREAKPOINTS ─────────────────────────────────────────── */
+
+/* 768px → 48em */
+@media (min-width: 48em) {
+  .hero-section h1 { margin-bottom: 1.5rem; }
 
   .features-grid {
-    flex-direction: column;
-    gap: 2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2.5rem;
   }
 
   .feature-card {
-    min-width: 100%;
-    max-width: 100%;
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
   }
 
-  .feature-icon {
-    display: inline-grid;
-    justify-items: center;
-  }
+  .feature-icon { display: block; }
 }
