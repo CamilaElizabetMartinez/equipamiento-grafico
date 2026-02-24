@@ -2,8 +2,8 @@
   --footer-gap: clamp(1rem, 5vw, 5rem);
   --footer-pad-v: clamp(1.5rem, 3.5vw, 3.5rem);
   --footer-pad-h: clamp(0.75rem, 2vw, 2rem);
-  --footer-title-size: clamp(1rem, 1.3vw, 1.3rem);
-  --footer-text-size: clamp(0.8rem, 1vw, 0.95rem);
+  --footer-title-size: clamp(0.875rem, 1.1vw, 1rem);
+  --footer-text-size: clamp(0.75rem, 0.9vw, 0.85rem);
   --footer-social-size: clamp(2.25rem, 3vw, 3rem);
   --footer-icon-size: clamp(1.1rem, 1.4vw, 1.4rem);
   --footer-muted: #f8f9fa;
@@ -41,8 +41,8 @@
   color: var(--footer-muted);
   font-size: var(--footer-title-size);
   font-weight: 700;
-  letter-spacing: 0.5px;
   margin-bottom: 0.75rem;
+  white-space: nowrap;
 }
 
 /* ── LINKS ─────────────────────────────────── */
