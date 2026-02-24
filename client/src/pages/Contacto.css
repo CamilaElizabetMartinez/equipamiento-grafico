@@ -1,13 +1,13 @@
 /* ── Página ── */
 .contacto {
-  padding: 3.5rem 0;
+  padding: 2rem 0;
   min-height: 60vh;
 }
 
 .page-title {
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   color: var(--primary-color);
-  font-size: 2.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-align: center;
@@ -16,6 +16,7 @@
 /* ── Layout ── */
 .contacto-grid {
   display: flex;
+  flex-direction: column;
   gap: 2rem;
   align-items: stretch;
 }
@@ -24,15 +25,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 2.5rem;
+  padding: 1.5rem;
   background: #f8f9fa;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .card-title {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   color: var(--primary-color);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
@@ -119,22 +120,26 @@
   transform: translateY(-2px);
 }
 
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .page-title { font-size: 2.2rem; }
-  .contacto-grid { gap: 1.5rem; }
-  .contact-card { padding: 2rem; }
-}
+/* ─── BREAKPOINTS ─────────────────────────────────────────── */
 
-@media (max-width: 768px) {
+/* 480px → 30em */
+@media (min-width: 30em) {
   .contacto { padding: 2.5rem 0; }
   .page-title { font-size: 2rem; margin-bottom: 2rem; }
-  .contacto-grid { flex-direction: column; }
+  .contact-card { padding: 2rem; }
+  .card-title { font-size: 1.4rem; margin-bottom: 2rem; }
 }
 
-@media (max-width: 480px) {
-  .contacto { padding: 2rem 0; }
-  .page-title { font-size: 1.8rem; margin-bottom: 1.5rem; }
-  .contact-card { padding: 1.5rem; }
-  .card-title { font-size: 1.2rem; margin-bottom: 1.5rem; }
+/* 768px → 48em */
+@media (min-width: 48em) {
+  .page-title { font-size: 2.2rem; }
+  .contacto-grid { flex-direction: row; gap: 1.5rem; }
+}
+
+/* 1024px → 64em */
+@media (min-width: 64em) {
+  .contacto { padding: 3.5rem 0; }
+  .page-title { font-size: 2.6rem; margin-bottom: 3rem; }
+  .contacto-grid { gap: 2rem; }
+  .contact-card { padding: 2.5rem; }
 }
