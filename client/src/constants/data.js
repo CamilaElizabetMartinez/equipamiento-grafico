@@ -9,7 +9,7 @@ export const CONTACT = {
   address:  'General Paz 321, Monte Grande',
   phones: [
     { href: 'tel:+541161100402', display: '+54 11 6110 0402', name: 'Carlos Gonzalez' },
-    { href: 'tel:+541144787505', display: '+54 11 4478 7505', name: 'Lionel Perez'    },
+    { href: 'tel:+541144787505', display: '+54 11 4478 7505', name: 'Lionel Cetton'    },
   ],
   email: { href: 'mailto:equipamientografico@gmail.com', display: 'equipamientografico@gmail.com' },
 };
