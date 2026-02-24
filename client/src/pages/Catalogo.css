@@ -21,15 +21,17 @@
 /* FILTERS SYSTEM */
 .filters-row {
   display: flex;
+  flex-direction: column;
   gap: clamp(1.3rem, 3vw, 1.8rem);
   margin: 0 auto;
   justify-content: center;
   width: 100%;
+  padding: 0 clamp(1rem, 3vw, 1.5rem);
 }
 
 .filter-group {
   flex: 1;
-  min-width: clamp(200px, 25vw, 280px);
+  min-width: clamp(12.5em, 25vw, 17.5em);
 }
 
 /* FORM ELEMENTS */
@@ -72,10 +74,11 @@
 /* PRODUCTS GRID */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: 1fr;
   justify-content: center;
-  gap: clamp(1.5rem, 4vw, 2.5rem);
+  gap: clamp(1.2rem, 4vw, 2rem);
   margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  padding: 0 clamp(1rem, 3vw, 1.5rem);
 }
 
 /* STATES */
@@ -94,8 +97,8 @@
 }
 
 .spinner {
-  width: clamp(40px, 10vw, 50px);
-  height: clamp(40px, 10vw, 50px);
+  width: clamp(2.5em, 10vw, 3.125em);
+  height: clamp(2.5em, 10vw, 3.125em);
   border: 4px solid var(--border-color);
   border-top: 4px solid var(--primary-color);
   border-radius: 50%;
@@ -137,18 +140,19 @@
   box-shadow: 0 4px 12px rgba(124, 150, 146, 0.3);
 }
 
-/* RESPONSIVE - MÍNIMO */
-@media (max-width: 768px) {
+/* ─── BREAKPOINTS ─────────────────────────────────────────── */
+
+/* 768px → 48em */
+@media (min-width: 48em) {
   .filters-row {
-    width: 100%;
-    padding: 0 clamp(1rem, 3vw, 1.5rem);
-    flex-direction: column;
+    flex-direction: row;
+    padding: 0;
   }
-  
+
   .products-grid {
-    grid-template-columns: 1fr;
-    padding: 0 clamp(1rem, 3vw, 1.5rem);
-    gap: clamp(1.2rem, 4vw, 2rem);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 0;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
   }
 }
 

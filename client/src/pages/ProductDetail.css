@@ -262,8 +262,8 @@
 
 /* ── RESPONSIVE (mobile-first) ──────────────── */
 
-/* Tablet */
-@media (min-width: 481px) {
+/* 480px → 30em */
+@media (min-width: 30em) {
   .detail-nav,
   .modal-nav {
     font-size: 2rem;
@@ -278,8 +278,8 @@
   .indicator-dot { width: 14px; height: 14px; }
 }
 
-/* Desktop */
-@media (min-width: 769px) {
+/* 768px → 48em */
+@media (min-width: 48em) {
   .product-detail {
     padding: 5rem 0;
   }

@@ -15,7 +15,7 @@
 
 .auth-card {
   background: var(--white);
-  padding: 3rem 2.5rem;
+  padding: 2rem 1.5rem;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
@@ -23,7 +23,7 @@
 .auth-card h2 {
   text-align: center;
   color: var(--primary-color);
-  font-size: 2rem;
+  font-size: 1.7rem;
   margin-bottom: 0.5rem;
 }
 
@@ -110,13 +110,10 @@
   font-weight: 500;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .auth-card {
-    padding: 2rem 1.5rem;
-  }
+/* ─── BREAKPOINTS ─────────────────────────────────────────── */
 
-  .auth-card h2 {
-    font-size: 1.7rem;
-  }
+/* 768px → 48em */
+@media (min-width: 48em) {
+  .auth-card { padding: 3rem 2.5rem; }
+  .auth-card h2 { font-size: 2rem; }
 }
