@@ -1,21 +1,12 @@
 /* ─── ABOUT ────────────────────────────── */
-:root {
-  --about-pad: 5.5rem;
-  --about-gap: 3.5rem;
-  --title-size: 2.8rem;
-  --title-mb: 3.5rem;
-  --h2-size: 1.8rem;
-  --p-size: 1.05rem;
-  --section-gap: 2.5rem;
-}
-
 .about {
-  --pad: var(--about-pad);
-  --gap: var(--about-gap);
-  --title-size: var(--title-size);
-  --title-mb: var(--title-mb);
-  --h2-size: var(--h2-size);
-  --p-size: var(--p-size);
+  --pad: 2rem;
+  --gap: 2rem;
+  --title-size: 1.8rem;
+  --title-mb: 2rem;
+  --h2-size: 1.4rem;
+  --p-size: 0.95rem;
+  --section-gap: 1.5rem;
 
   padding: var(--pad) 0;
   min-height: 60vh;
@@ -32,13 +23,13 @@
 
 .about-content {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--gap);
   align-items: flex-start;
 }
 
 .about-image {
-  flex: 1; min-width: 300px;
+  width: 100%;
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
@@ -48,8 +39,9 @@
 .about-image img { width: 100%; height: auto; display: block; }
 
 .about-info {
-  flex: 1; min-width: 300px;
-  display: flex; flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   gap: var(--section-gap);
 }
 
@@ -61,34 +53,40 @@
 }
 
 .about-section p {
-  line-height: 1.9; color: var(--text-dark);
-  margin-bottom: 1.2rem; text-align: justify;
+  line-height: 1.8;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  text-align: left;
   font-size: var(--p-size);
 }
 
 .signature {
-  margin-top: 2rem; color: var(--primary-color);
-  font-weight: 600; font-size: 1.1rem;
+  margin-top: 1.5rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95rem;
   font-style: italic;
 }
 
 /* ─── BREAKPOINTS ─────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .about { --pad: 3rem; --gap: 2.8rem; --title-size: 2.4rem; --title-mb: 3rem; --h2-size: 1.6rem; --p-size: 1rem; }
+
+/* 480px → 30em */
+@media (min-width: 30em) {
+  .about { --pad: 2.5rem; --gap: 2.5rem; --title-size: 2.2rem; --title-mb: 2.5rem; --h2-size: 1.6rem; --p-size: 1rem; --section-gap: 2rem; }
+  .about-section p { margin-bottom: 1.2rem; }
+  .signature { font-size: 1rem; margin-top: 2rem; }
 }
 
-@media (max-width: 768px) {
-  .about { --pad: 2.5rem; --title-size: 2.2rem; --title-mb: 2.5rem; --gap: 2.5rem; --h2-size: 1.6rem; --p-size: 1rem; }
-  .about-content { flex-direction: column; }
-  .about-image, .about-info { min-width: 100%; }
-  .about-info { gap: 2rem; }
-  .about-section p { text-align: left; line-height: 1.8; }
-  .signature { font-size: 1rem; }
+/* 768px → 48em */
+@media (min-width: 48em) {
+  .about { --pad: 3rem; --gap: 2.8rem; --title-size: 2.4rem; --title-mb: 3rem; --h2-size: 1.6rem; --p-size: 1rem; --section-gap: 2.5rem; }
+  .about-content { flex-direction: row; flex-wrap: wrap; }
+  .about-image, .about-info { flex: 1; width: auto; min-width: 300px; }
+  .about-section p { text-align: justify; line-height: 1.9; }
+  .signature { font-size: 1.1rem; }
 }
 
-@media (max-width: 480px) {
-  .about { --pad: 2rem; --gap: 2rem; --title-size: 1.8rem; --title-mb: 2rem; --h2-size: 1.4rem; --p-size: 0.95rem; }
-  .about-info { gap: 1.5rem; }
-  .about-section p { margin-bottom: 1rem; }
-  .signature { font-size: 0.95rem; margin-top: 1.5rem; }
+/* 1024px → 64em */
+@media (min-width: 64em) {
+  .about { --pad: 5.5rem; --gap: 3.5rem; --title-size: 2.8rem; --title-mb: 3.5rem; --h2-size: 1.8rem; --p-size: 1.05rem; }
 }
