@@ -104,7 +104,7 @@ class ProductApiController extends AbstractController
                 }
                 $multimediaMap[$pid][] = [
                     'id'       => $m->getIdmultimedia(),
-                    'url'      => $m->getUrl(),
+                    'url'      => 'https://equipamientografico.com/' . str_replace(' ', '%20', ltrim($m->getUrl(), '/')),
                     'priority' => $m->getPriority(),
                 ];
             }
@@ -410,7 +410,7 @@ class ProductApiController extends AbstractController
             'multimedia' => array_map(function($m) {
                 return [
                     'id'       => $m->getIdmultimedia(),
-                    'url'      => $m->getUrl(),
+                    'url'      => 'https://equipamientografico.com/' . str_replace(' ', '%20', ltrim($m->getUrl(), '/')),
                     'priority' => $m->getPriority(),
                 ];
             }, $multimedia),
