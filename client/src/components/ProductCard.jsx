@@ -1,29 +1,49 @@
-import { useState } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  PLACEHOLDER_CARD_EMPTY,
+  PLACEHOLDER_CARD_ERROR,
+} from '../utils/productImageUrl';
+import ProductMultimedia from './ProductMultimedia';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const images = product.multimedia || [];
+  const images = useMemo(() => {
+    const rawItems = product.multimedia || [];
+    return rawItems.filter((item) => item?.url && String(item.url).trim());
+  }, [product.multimedia]);
+
   const hasMultipleImages = images.length > 1;
 
-  const nextImage = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCurrentImageIndex((prev) =>
-      prev === images.length - 1 ? 0 : prev + 1
-    );
-  };
+  useEffect(() => {
+    setCurrentImageIndex((previousIndex) => {
+      if (images.length === 0) return 0;
+      return previousIndex >= images.length ? 0 : previousIndex;
+    });
+  }, [images]);
 
-  const prevImage = (e) => {
+  const nextImage = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     setCurrentImageIndex((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
+      images.length === 0 ? 0 : prev === images.length - 1 ? 0 : prev + 1
     );
-  };
+  }, [images.length]);
+
+  const prevImage = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) =>
+      images.length === 0
+        ? 0
+        : prev === 0
+          ? images.length - 1
+          : prev - 1
+    );
+  }, [images.length]);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('es-AR', {
@@ -33,32 +53,32 @@ const ProductCard = ({ product }) => {
     }).format(price);
   };
 
-  const handleCardClick = () => {
+  const handleCardClick = useCallback(() => {
     navigate(`/producto/${product.idproduct}`);
-  };
+  }, [navigate, product.idproduct]);
 
   return (
     <div className="product-card" onClick={handleCardClick}>
       <div className="product-image-container">
         {images.length > 0 ? (
           <>
-            <img
-              src={images[currentImageIndex]?.url || images[0]?.url}
+            <ProductMultimedia
+              url={images[currentImageIndex]?.url}
               alt={product.titulo}
               className="product-image"
-              onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/300x300/7C9692/FFFFFF?text=Producto';
-              }}
+              placeholderEmpty={PLACEHOLDER_CARD_EMPTY}
+              placeholderError={PLACEHOLDER_CARD_ERROR}
+              videoStopsParentClick
             />
             {hasMultipleImages && (
               <>
                 <button className="img-nav prev" onClick={prevImage}>‹</button>
                 <button className="img-nav next" onClick={nextImage}>›</button>
                 <div className="image-indicators">
-                  {images.map((_, index) => (
+                  {images.map((imageEntry, imageIndex) => (
                     <span
-                      key={index}
-                      className={`indicator-dot ${index === currentImageIndex ? 'active' : ''}`}
+                      key={imageEntry.id ?? `img-${imageIndex}`}
+                      className={`indicator-dot ${imageIndex === currentImageIndex ? 'active' : ''}`}
                     />
                   ))}
                 </div>
@@ -67,7 +87,7 @@ const ProductCard = ({ product }) => {
           </>
         ) : (
           <img
-            src="https://via.placeholder.com/300x300/7C9692/FFFFFF?text=Sin+Imagen"
+            src={PLACEHOLDER_CARD_EMPTY}
             alt={product.titulo}
             className="product-image"
           />

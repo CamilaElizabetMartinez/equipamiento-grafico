@@ -1,19 +1,20 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import {
+  resolveProductImageUrl,
+  PLACEHOLDER_DETAIL,
+} from '../utils/productImageUrl';
+import ProductMultimedia from '../components/ProductMultimedia';
 import './ProductDetail.css';
 
 const WHATSAPP_NUMBER = '541156347845';
-const PLACEHOLDER_IMG = 'https://via.placeholder.com/600x600/7C9692/FFFFFF?text=Producto';
 
 const formatPrice = (price) => new Intl.NumberFormat('es-AR', {
   style: 'currency',
   currency: 'ARS'
 }).format(price);
 
-const getImageUrl = (url) => {
-  if (!url) return PLACEHOLDER_IMG;
-  return url.startsWith('/') ? url : '/' + url;
-};
+const getImageUrl = (url) => resolveProductImageUrl(url, PLACEHOLDER_DETAIL);
 
 // ── SUBCOMPONENTES ───────────────────────────
 
@@ -63,12 +64,13 @@ const ImageGallery = ({ images, currentIndex, onNavigate, onImageClick, onImageI
 
   return (
     <div className="detail-image-container">
-      <img
-        src={getImageUrl(images[currentIndex]?.url)}
+      <ProductMultimedia
+        url={images[currentIndex]?.url}
         alt="Producto"
         className="detail-image"
+        placeholderEmpty={PLACEHOLDER_DETAIL}
+        placeholderError={PLACEHOLDER_DETAIL}
         onClick={onImageClick}
-        onError={(e) => e.target.src = getImageUrl()}
       />
       {images.length > 1 && (
         <>
@@ -85,11 +87,13 @@ const ImageModalFull = ({ images, currentIndex, onClose, onNavigate, onImageInde
   <div className="image-modal" onClick={onClose}>
     <div className="content-modal" onClick={(e) => e.stopPropagation()}>
       <button className="modal-close" onClick={onClose}>×</button>
-      <img
-        src={getImageUrl(images[currentIndex]?.url)}
+      <ProductMultimedia
+        url={images[currentIndex]?.url}
         alt={title}
         className="modal-image"
-        onError={(e) => e.target.src = getImageUrl()}
+        placeholderEmpty={PLACEHOLDER_DETAIL}
+        placeholderError={PLACEHOLDER_DETAIL}
+        showVideoControls
       />
       {images.length > 1 && (
         <>

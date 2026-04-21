@@ -74,6 +74,11 @@
   transition: transform 0.4s ease;
 }
 
+.detail-image-container video.detail-image {
+  display: block;
+  max-height: 70vh;
+}
+
 /* ── NAV BUTTONS ────────────────────────────── */
 .detail-nav,
 .modal-nav {

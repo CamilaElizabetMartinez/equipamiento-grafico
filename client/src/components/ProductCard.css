@@ -30,6 +30,11 @@
   transition: transform 0.4s ease;
 }
 
+.product-image-container video.product-image {
+  display: block;
+  object-fit: cover;
+}
+
 .product-card:hover .product-image {
   transform: scale(1.08);
 }
