@@ -3,12 +3,12 @@ import Carousel from '../components/Carousel';
 import './Home.css';
 
 const brands = [
-  { src: 'public/images/b-logo1.png', name: 'Roland',      desc: 'Impresión digital de gran formato líder mundial' },
-  { src: 'public/images/b-logo2.png', name: 'Miller',      desc: 'Maquinaria de corte y troquelado de precisión' },
-  { src: 'public/images/b-logo3.png', name: 'Wohlenberg',  desc: 'Corte y plegado profesional para producción industrial' },
-  { src: 'public/images/b-logo4.png', name: 'ADAST',       desc: 'Offset compacto de alta calidad checo' },
-  { src: 'public/images/b-logo5.png', name: 'KOMORI',      desc: 'Offset litográfica japonesa de máxima precisión' },
-  { src: 'public/images/b-logo6.png', name: 'HEIDELBERG',  desc: 'Referente mundial en impresión offset de alta velocidad' },
+  { src: '/images/b-logo1.png', name: 'Roland',      desc: 'Impresión digital de gran formato líder mundial' },
+  { src: '/images/b-logo2.png', name: 'Miller',      desc: 'Maquinaria de corte y troquelado de precisión' },
+  { src: '/images/b-logo3.png', name: 'Wohlenberg',  desc: 'Corte y plegado profesional para producción industrial' },
+  { src: '/images/b-logo4.png', name: 'ADAST',       desc: 'Offset compacto de alta calidad checo' },
+  { src: '/images/b-logo5.png', name: 'KOMORI',      desc: 'Offset litográfica japonesa de máxima precisión' },
+  { src: '/images/b-logo6.png', name: 'HEIDELBERG',  desc: 'Referente mundial en impresión offset de alta velocidad' },
 ];
 
 const Home = () => (
