@@ -36,6 +36,24 @@ class ProductApiController extends AbstractController
         }
         return null;
     }
+
+    /**
+     * Stored paths in DB start with "/img/...". With empty PUBLIC_SITE_URL returns a root-relative URL for dev + Vite proxy.
+     */
+    private function buildPublicMultimediaUrl(?string $storedPath): string
+    {
+        if ($storedPath === null || $storedPath === '') {
+            return '';
+        }
+
+        $base = rtrim((string) $this->getParameter('public_site.url'), '/');
+        $segment = str_replace(' ', '%20', ltrim($storedPath, '/'));
+
+        return $base === ''
+            ? '/' . $segment
+            : $base . '/' . $segment;
+    }
+
     /**
      * @Route("", name="list", methods={"GET"})
      * Pública - No requiere autenticación
@@ -104,7 +122,7 @@ class ProductApiController extends AbstractController
                 }
                 $multimediaMap[$pid][] = [
                     'id'       => $m->getIdmultimedia(),
-                    'url'      => 'https://equipamientografico.com/' . str_replace(' ', '%20', ltrim($m->getUrl(), '/')),
+                    'url'      => $this->buildPublicMultimediaUrl($m->getUrl()),
                     'priority' => $m->getPriority(),
                 ];
             }
@@ -331,7 +349,11 @@ class ProductApiController extends AbstractController
                 'url' => $url,
             ]);
 
-            return ApiResponse::success(['url' => $url], 'Imagen subida exitosamente', 201);
+            return ApiResponse::success(
+                ['url' => $this->buildPublicMultimediaUrl($url)],
+                'Imagen subida exitosamente',
+                201
+            );
 
         } catch (\Exception $e) {
             $this->logger->error('Exception during image upload', [
@@ -407,10 +429,10 @@ class ProductApiController extends AbstractController
                 'idcategoria' => $product->getIdcategoria()->getIdcategoria(),
                 'nombre' => $product->getIdcategoria()->getNombrecategoria(),
             ],
-            'multimedia' => array_map(function($m) {
+            'multimedia' => array_map(function ($m) {
                 return [
                     'id'       => $m->getIdmultimedia(),
-                    'url'      => 'https://equipamientografico.com/' . str_replace(' ', '%20', ltrim($m->getUrl(), '/')),
+                    'url'      => $this->buildPublicMultimediaUrl($m->getUrl()),
                     'priority' => $m->getPriority(),
                 ];
             }, $multimedia),
@@ -468,9 +490,9 @@ class ProductApiController extends AbstractController
                     'idcategoria' => $product->getIdcategoria()->getIdcategoria(),
                     'nombre' => $product->getIdcategoria()->getNombrecategoria(),
                 ],
-                'multimedia' => array_map(function($m) {
+                'multimedia' => array_map(function ($m) {
                     return [
-                        'url' => $m->getUrl(),
+                        'url' => $this->buildPublicMultimediaUrl($m->getUrl()),
                         'priority' => $m->getPriority(),
                     ];
                 }, $multimedia),
