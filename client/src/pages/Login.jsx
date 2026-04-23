@@ -32,7 +32,7 @@ const Login = () => {
       <div className="auth-container">
         <div className="auth-card">
           <h2>Iniciar Sesión</h2>
-          <p className="auth-subtitle">Equipamiento Gráfico Monte Grande</p>
+          <p className="auth-subtitle">Equipamiento Gráfico Comiter</p>
 
           {error && <div className="error-message">{error}</div>}
 

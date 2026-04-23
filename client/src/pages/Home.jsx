@@ -17,7 +17,7 @@ const Home = () => (
 
     <section className="hero-section">
       <div className="container">
-        <h1>Maquinaria Gráfica Profesional</h1>
+        <h1>Maquinaria Gráfica</h1>
         <p className="hero-subtitle">
           Más de 30 años de experiencia en el mercado argentino
         </p>

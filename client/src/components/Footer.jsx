@@ -17,8 +17,8 @@ const Footer = () => (
   <footer className="footer">
     <div className="footer-container">
       <div className="footer-section">
-        <h3 className="footer-title">Equipamiento Gráfico Monte Grande</h3>
-        <p>Conseguimos y vendemos maquinaria gráfica profesional</p>
+        <h3 className="footer-title">Equipamiento Gráfico Comiter</h3>
+        <p>Maquinaria gráfica</p>
       </div>
       <div className="footer-section">
         <h3 className="footer-title">Contacto</h3>
@@ -59,7 +59,7 @@ const Footer = () => (
       </div>
     </div>
     <div className="footer-bottom">
-      <p>© 2026 Equipamiento Gráfico Monte Grande. Todos los derechos reservados.</p>
+      <p>© 2026 Equipamiento Gráfico Comiter. Todos los derechos reservados.</p>
     </div>
   </footer>
 );

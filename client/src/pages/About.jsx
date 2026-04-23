@@ -26,7 +26,7 @@ const About = () => {
                                 orientarlos en los equipamientos más adecuados para la realización de sus trabajo.
                             </p>
                             <p className="signature">
-                                <strong>Equipamiento Grafico Comiter de Carlos A. Gonzalez y Lionel Setton</strong>
+                                <strong>Equipamiento Grafico Comiter de Carlos Alfredo Gonzalez y Lionel Setton</strong>
                             </p>
                         </div>
                     </div>

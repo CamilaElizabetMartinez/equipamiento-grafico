@@ -1,6 +1,6 @@
 # Equipamiento Gráfico - Frontend React
 
-Frontend desarrollado con React + Vite para el catálogo de productos de Equipamiento Gráfico Monte Grande.
+Frontend desarrollado con React + Vite para el catálogo de productos de Equipamiento Gráfico Comiter.
 
 ## 🚀 Características
 
@@ -152,8 +152,8 @@ Los archivos optimizados estarán en `dist/`
 
 ## 👥 Contacto
 
-**Equipamiento Gráfico Monte Grande**
-- 📍 Carlos Pellegrini 1055, Monte Grande, Argentina
+**Equipamiento Gráfico Comiter**
+- 📍 Monte Grande, Argentina
 - 📞 +54 11 6110 0402
 - ✉️ equipamientografico@gmail.com
 - 📸 Instagram: @equipamientografico
