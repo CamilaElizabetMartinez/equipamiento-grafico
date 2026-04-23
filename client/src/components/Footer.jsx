@@ -18,7 +18,7 @@ const Footer = () => (
     <div className="footer-container">
       <div className="footer-section">
         <h3 className="footer-title">Equipamiento Gráfico Comiter</h3>
-        <p>Maquinaria gráfica</p>
+        <p className='footer-item'>Maquinaria gráfica</p>
       </div>
       <div className="footer-section">
         <h3 className="footer-title">Contacto</h3>
