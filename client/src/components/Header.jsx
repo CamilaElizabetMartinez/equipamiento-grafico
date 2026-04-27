@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { STATIC_ASSET_VERSION } from '../constants/branding';
 import './Header.css';
 
 const Header = () => {
@@ -20,7 +21,11 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           <Link to="/" className="logo" onClick={closeMenu}>
-            <img src="/images/logo/logo.png" alt="Equipamiento Gráfico" className="logo-image" />
+            <img
+              src={`/images/logo/logo.png?v=${STATIC_ASSET_VERSION}`}
+              alt="Equipamiento Gráfico"
+              className="logo-image"
+            />
           </Link>
 
           <button
