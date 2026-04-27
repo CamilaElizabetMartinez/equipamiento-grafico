@@ -6,7 +6,7 @@ export const ICONS = {
 };
 
 export const CONTACT = {
-  address:  'Monte Grande',
+  address:  'Buenos Aires, Argentina',
   phones: [
     { href: 'tel:+541161100402', display: '+54 11 6110 0402', name: 'Carlos Alfredo Gonzalez' },
     { href: 'tel:+541144787505', display: '+54 11 4478 7505', name: 'Lionel Setton'    },
