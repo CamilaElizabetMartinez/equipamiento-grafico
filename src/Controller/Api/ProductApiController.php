@@ -27,6 +27,31 @@ class ProductApiController extends AbstractController
     }
 
     /**
+     * Returns the filesystem directory that is publicly served (contains /img).
+     */
+    private function getPublicRootPath(): string
+    {
+        $projectDir = (string) $this->getParameter('kernel.project_dir');
+        $normalizedProjectDir = rtrim($projectDir, '/');
+
+        $rootImgDir = $normalizedProjectDir . '/img';
+        if (is_dir($rootImgDir)) {
+            return $normalizedProjectDir;
+        }
+
+        $publicHtmlRoot = basename($normalizedProjectDir) === 'public_html'
+            ? $normalizedProjectDir
+            : $normalizedProjectDir . '/public_html';
+
+        $publicHtmlImgDir = $publicHtmlRoot . '/img';
+        if (is_dir($publicHtmlImgDir)) {
+            return $publicHtmlRoot;
+        }
+
+        return $publicHtmlRoot;
+    }
+
+    /**
      * Verifica si el usuario está autenticado
      */
     private function checkAuth(SessionInterface $session): ?JsonResponse
@@ -108,7 +133,7 @@ class ProductApiController extends AbstractController
         if (!empty($productIds)) {
             $multimediaResult = $em->getRepository(Multimedia::class)
                 ->createQueryBuilder('m')
-                ->where('m.idproduct IN (:ids)')
+                ->where('IDENTITY(m.idproduct) IN (:ids)')
                 ->setParameter('ids', $productIds)
                 ->orderBy('m.priority', 'DESC')
                 ->getQuery()
@@ -310,7 +335,7 @@ class ProductApiController extends AbstractController
             }
 
             // Crear directorio si no existe
-            $uploadDir = $this->getParameter('kernel.project_dir') . '/public_html/img/' . $id;
+            $uploadDir = $this->getPublicRootPath() . '/img/' . $id;
             if (!is_dir($uploadDir)) {
                 if (!mkdir($uploadDir, 0755, true)) {
                     $this->logger->error('Failed to create upload directory', ['directory' => $uploadDir]);
@@ -385,7 +410,7 @@ class ProductApiController extends AbstractController
                 return ApiResponse::fail('La imagen no pertenece al producto indicado', null, 403);
             }
 
-            $filePath = $this->getParameter('kernel.project_dir') . '/public_html' . $multimedia->getUrl();
+            $filePath = $this->getPublicRootPath() . $multimedia->getUrl();
             if (file_exists($filePath)) {
                 unlink($filePath);
             }
