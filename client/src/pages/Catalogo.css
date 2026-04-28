@@ -6,6 +6,7 @@
 .catalogo {
   padding: clamp(2rem, 5vw, 2.5rem) 0;
   min-height: 60vh;
+  overflow-x: hidden;
 }
 
 /* TYPOGRAPHY */
@@ -81,6 +82,60 @@
   padding: 0 clamp(1rem, 3vw, 1.5rem);
 }
 
+/* PAGINATION */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  padding: 0 clamp(1rem, 3vw, 1.5rem);
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.pagination-btn {
+  padding: 0.7rem 1.2rem;
+  font-weight: 700;
+  background: var(--white);
+  color: var(--primary-color);
+  border: none;
+  border-radius: var(--border-radius, 8px);
+  cursor: pointer;
+  transition: var(--transition, all 0.3s ease);
+}
+
+.pagination-btn--text {
+  background: transparent;
+  padding: 0.5rem 0.4rem;
+}
+
+.pagination-btn--text:hover {
+  text-decoration: underline;
+}
+
+.pagination-btn.active,
+.pagination-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.pagination-btn:disabled {
+  pointer-events: none;
+}
+
+.pagination-ellipsis {
+  font-weight: 700;
+  color: var(--text-dark);
+  padding: 0 0.2rem;
+}
+
 /* STATES */
 .loading,
 .error,
@@ -142,7 +197,27 @@
 
 /* ─── BREAKPOINTS ─────────────────────────────────────────── */
 
-/* 768px → 48em */
+/* Small phones: tighten pagination */
+@media (max-width: 30em) {
+  .pagination {
+    gap: 0.6rem;
+  }
+
+  .pagination-pages {
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+  }
+
+  .pagination-btn {
+    padding: 0.55rem 0.9rem;
+  }
+
+  .pagination-btn--text {
+    padding: 0.45rem 0.3rem;
+  }
+}
+
+/* Tablet (>= 768px → 48em) */
 @media (min-width: 48em) {
   .filters-row {
     flex-direction: row;
@@ -153,6 +228,25 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     padding: 0;
     gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .pagination {
+    padding: 0;
+  }
+}
+
+/* Desktop (>= 1024px → 64em) */
+@media (min-width: 64em) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
+
+  .pagination-pages {
+    gap: 0.75rem;
+  }
+
+  .pagination-btn {
+    padding: 0.75rem 1.25rem;
   }
 }
 
